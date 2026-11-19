@@ -49,20 +49,20 @@ Este documento define **todos los componentes con nombre exacto de carpeta y arc
 - [x] **2.4** Construir `edificio/central-locales.js` (**≤ 150 líneas**) con los interruptores de encendido/apagado de los 6 locales y protección anti-fallos (`try / catch`).
 - [x] **2.5** 🛡️ **CONTROL DE CALIDAD FASE 2 (Vigilante):** Ejecutar `node vigilante/auditor.js` y confirmar que `edificio.css`, `visor-mapa.js` y `central-locales.js` tienen **≤ 250 líneas**.
 - [x] **2.6** 🛡️ **CONTROL DE CALIDAD FASE 2 (Run & Test):** Hacer **Run & Test** en el puerto local `5000` (`http://localhost:5000`) y comprobar que el mapa se mueve, hace zoom a 60 FPS, cambia entre las 3 vistas de color y la consola marca **0 errores**.
-- [ ] **2.7** Extraer directamente de IGN las cuadrículas originales en Alta Definición (*Tiles* de zoom alto donde se ven todas las cuadras, autopistas amarillas, rotondas y edificios) y ensamblarlas en Ultra Alta Resolución (4K / 8K) en `recursos/mapa/leonida-oficial.webp` (o sistema de teselas HD bajo demanda).
-- [ ] **2.8** Actualizar `edificio/visor-mapa.js` (**≤ 200 líneas**) y `edificio/edificio.css` (**≤ 160 líneas**) para renderizar el mapa HD a nivel de calle (zoom hasta 600%+) con nitidez total a 60 FPS.
-- [ ] **2.9** 🛡️ **CONTROL DE CALIDAD FASE 2 HD (Vigilante + Run & Test):** Ejecutar `node vigilante/auditor.js` y verificar en `http://localhost:5000` que al acercar el zoom al máximo las calles, tréboles de autopista y edificios se ven 100% nítidos como en IGN con **0 errores**.
+- [x] **2.7** Extraer directamente de IGN las cuadrículas originales en Alta Definición (*Tiles* de zoom alto donde se ven todas las cuadras, autopistas amarillas, rotondas y edificios) y ensamblarlas en Ultra Alta Resolución (4K / 8K) en `recursos/mapa/leonida-oficial.webp` (o sistema de teselas HD bajo demanda).
+- [x] **2.8** Actualizar `edificio/visor-mapa.js` (**≤ 200 líneas**) y `edificio/edificio.css` (**≤ 160 líneas**) para renderizar el mapa HD a nivel de calle (zoom hasta 600%+) con nitidez total a 60 FPS.
+- [x] **2.9** 🛡️ **CONTROL DE CALIDAD FASE 2 HD (Vigilante + Run & Test):** Ejecutar `node vigilante/auditor.js` y verificar en `http://localhost:5000` que al acercar el zoom al máximo las calles, tréboles de autopista y edificios se ven 100% nítidos como en IGN con **0 errores**.
 
 ---
 
 ## Fase 3: Lámina de Iconos y Datos Estilo IGN (`recursos/iconos/` y `datos/`)
 *Objetivo: Crear la hoja única de iconos SVG y los archivos JSON de categorías y ubicaciones respetando el límite de 250 líneas.*
 
-- [ ] **3.1** Crear `recursos/iconos/lamina-iconos.svg` (**≤ 250 líneas**) con todos los iconos vectoriales de los 5 grupos de IGN: **Coleccionables App WAiNK** (*Landmarks [31], Curiosidades [35], Esculturas [23], Carteles Peewees [4] y Grafitis No Flusher [15]*), **Robos y Golpes** (*Bancos, grandes bancos, joyerías, casas de empeño y préstamos*), **Vehículos y Servicios** (*Pay 'n' Spray, talleres, gasolineras, cargadores eléctricos, cajeros remolcables y transporte ferry/tren/bus*), **Propiedades y Activos** (*Pisos francos, garajes comprables, vehículos únicos y viaje rápido*) y **Tiendas y Personalización** (*Tiendas 24/7, comida rápida, bares, tiendas de ropa, peluquerías y tatuajes*).
-- [ ] **3.2** Crear `datos/categorias.json` (**≤ 200 líneas**) con los 5 grupos, colores e identificadores de cada icono.
-- [ ] **3.3** Crear `datos/ubicaciones-vice-city.json` (**≤ 240 líneas**) y `datos/ubicaciones-regiones.json` (**≤ 240 líneas**) con las coordenadas `(X%, Y%)`, pistas y fotos bajo demanda en **formato JSON lineal (1 línea = 1 ubicación)** para alojar hasta 240 puntos por archivo sin superar las 250 líneas.
-- [ ] **3.4** 🛡️ **CONTROL DE CALIDAD FASE 3 (Vigilante):** Ejecutar `node vigilante/auditor.js` para validar que todos los `.json` y `.svg` tienen **≤ 250 líneas** y formato JSON válido sin errores.
-- [ ] **3.5** 🛡️ **CONTROL DE CALIDAD FASE 3 (Run & Test):** Hacer **Run & Test** para confirmar carga limpia de los datos e iconos en el navegador con **0 errores**.
+- [x] **3.1** Crear `recursos/iconos/lamina-iconos.svg` (**≤ 250 líneas**) con todos los iconos vectoriales de los 5 grupos de IGN: **Coleccionables App WAiNK** (*Landmarks [31], Curiosidades [35], Esculturas [23], Carteles Peewees [4] y Grafitis No Flusher [15]*), **Robos y Golpes** (*Bancos, grandes bancos, joyerías, casas de empeño y préstamos*), **Vehículos y Servicios** (*Pay 'n' Spray, talleres, gasolineras, cargadores eléctricos, cajeros remolcables y transporte ferry/tren/bus*), **Propiedades y Activos** (*Pisos francos, garajes comprables, vehículos únicos y viaje rápido*) y **Tiendas y Personalización** (*Tiendas 24/7, comida rápida, bares, tiendas de ropa, peluquerías y tatuajes*).
+- [x] **3.2** Crear `datos/categorias.json` (**≤ 200 líneas**) con los 5 grupos, colores e identificadores de cada icono.
+- [x] **3.3** Crear `datos/ubicaciones-vice-city.json` (**≤ 240 líneas**) y `datos/ubicaciones-regiones.json` (**≤ 240 líneas**) con las coordenadas `(X%, Y%)`, pistas y fotos bajo demanda en **formato JSON lineal (1 línea = 1 ubicación)** para alojar hasta 240 puntos por archivo sin superar las 250 líneas.
+- [x] **3.4** 🛡️ **CONTROL DE CALIDAD FASE 3 (Vigilante):** Ejecutar `node vigilante/auditor.js` para validar que todos los `.json` y `.svg` tienen **≤ 250 líneas** y formato JSON válido sin errores.
+- [x] **3.5** 🛡️ **CONTROL DE CALIDAD FASE 3 (Run & Test):** Hacer **Run & Test** para confirmar carga limpia de los datos e iconos en el navegador con **0 errores**.
 
 ---
 

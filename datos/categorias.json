@@ -1,0 +1,75 @@
+{
+  "version": "1.0.0",
+  "estado": "Leonida",
+  "regiones": [
+    "Vice City",
+    "Leonida Keys",
+    "Grassrivers",
+    "Port Gellhorn",
+    "Ambrosia",
+    "Mount Kalaga National Park"
+  ],
+  "grupos": [
+    {
+      "id": "coleccionables-waink",
+      "nombre": "Coleccionables App WAiNK",
+      "colorGrupo": "#ff2a85",
+      "categorias": [
+        { "id": "landmarks", "nombre": "Landmarks (Puntos Emblemáticos)", "icono": "icono-landmarks", "color": "#ff2a85", "coleccionable": true },
+        { "id": "curiosidades", "nombre": "Curiosities (Curiosidades)", "icono": "icono-curiosidades", "color": "#e879f9", "coleccionable": true },
+        { "id": "esculturas", "nombre": "Sculptures (Esculturas)", "icono": "icono-esculturas", "color": "#c084fc", "coleccionable": true },
+        { "id": "carteles-peewees", "nombre": "Peewees Billboards (Carteles)", "icono": "icono-carteles-peewees", "color": "#f472b6", "coleccionable": true },
+        { "id": "grafitis-no-flusher", "nombre": "No Flusher Tags (Grafitis)", "icono": "icono-grafitis-no-flusher", "color": "#fb7185", "coleccionable": true }
+      ]
+    },
+    {
+      "id": "robos-golpes",
+      "nombre": "Robos y Operaciones Ilegales",
+      "colorGrupo": "#10b981",
+      "categorias": [
+        { "id": "bancos", "nombre": "Banks (Bancos Locales)", "icono": "icono-bancos", "color": "#10b981", "coleccionable": false },
+        { "id": "grandes-bancos", "nombre": "Big Banks (Grandes Bancos)", "icono": "icono-grandes-bancos", "color": "#059669", "coleccionable": false },
+        { "id": "joyerias", "nombre": "Jewelry Stores (Joyerías)", "icono": "icono-joyerias", "color": "#34d399", "coleccionable": false },
+        { "id": "casas-empeno", "nombre": "Pawn Shops (Casas de Empeño)", "icono": "icono-casas-empeno", "color": "#6ee7b7", "coleccionable": false },
+        { "id": "prestamos-rapidos", "nombre": "Payday Loans (Préstamos Rápidos)", "icono": "icono-prestamos-rapidos", "color": "#a7f3d0", "coleccionable": false }
+      ]
+    },
+    {
+      "id": "vehiculos-servicios",
+      "nombre": "Vehículos, Servicios e Infraestructura",
+      "colorGrupo": "#00f0ff",
+      "categorias": [
+        { "id": "pay-n-spray", "nombre": "Pay 'n' Spray (Pintura y Reparación)", "icono": "icono-pay-n-spray", "color": "#00f0ff", "coleccionable": false },
+        { "id": "talleres-mod", "nombre": "Mod Shops (Talleres de Tunning)", "icono": "icono-talleres-mod", "color": "#38bdf8", "coleccionable": false },
+        { "id": "gasolineras", "nombre": "Gas Stations (Gasolineras)", "icono": "icono-gasolineras", "color": "#0ea5e9", "coleccionable": false },
+        { "id": "cargadores-electricos", "nombre": "Electric Chargers (Cargadores EV)", "icono": "icono-cargadores-electricos", "color": "#22d3ee", "coleccionable": false },
+        { "id": "cajeros-remolcables", "nombre": "Towable ATMs (Cajeros Remolcables)", "icono": "icono-cajeros-remolcables", "color": "#67e8f9", "coleccionable": false },
+        { "id": "transporte-publico", "nombre": "Transit (Tren, Ferry y Bus)", "icono": "icono-transporte-publico", "color": "#7dd3fc", "coleccionable": false }
+      ]
+    },
+    {
+      "id": "propiedades-activos",
+      "nombre": "Propiedades y Activos del Mundo",
+      "colorGrupo": "#f59e0b",
+      "categorias": [
+        { "id": "pisos-francos", "nombre": "Safehouses (Pisos Francos y Cajas)", "icono": "icono-pisos-francos", "color": "#f59e0b", "coleccionable": true },
+        { "id": "garajes-comprables", "nombre": "Purchasable Garages (Garajes)", "icono": "icono-garajes-comprables", "color": "#fbbf24", "coleccionable": true },
+        { "id": "vehiculos-unicos", "nombre": "Standout Vehicles (Vehículos Únicos)", "icono": "icono-vehiculos-unicos", "color": "#f97316", "coleccionable": true },
+        { "id": "viaje-rapido", "nombre": "Fast-Travel Points (Viaje Rápido)", "icono": "icono-viaje-rapido", "color": "#fdba74", "coleccionable": false }
+      ]
+    },
+    {
+      "id": "tiendas-personalizacion",
+      "nombre": "Tiendas, Comercio y Personalización",
+      "colorGrupo": "#a855f7",
+      "categorias": [
+        { "id": "tiendas-24-7", "nombre": "Convenience Stores (Tiendas 24/7)", "icono": "icono-tiendas-24-7", "color": "#a855f7", "coleccionable": false },
+        { "id": "comida-rapida", "nombre": "Fast Food (Comida Rápida)", "icono": "icono-comida-rapida", "color": "#f43f5e", "coleccionable": false },
+        { "id": "bares-clubs", "nombre": "Bars & Clubs (Bares y Clubes)", "icono": "icono-bares-clubs", "color": "#ec4899", "coleccionable": false },
+        { "id": "tiendas-ropa", "nombre": "Clothing Stores (Tiendas de Ropa)", "icono": "icono-tiendas-ropa", "color": "#8b5cf6", "coleccionable": false },
+        { "id": "peluquerias", "nombre": "Hair & Beauty (Peluquerías)", "icono": "icono-peluquerias", "color": "#d946ef", "coleccionable": false },
+        { "id": "tatuajes", "nombre": "Tattoo Parlors (Estudios de Tatuaje)", "icono": "icono-tatuajes", "color": "#6366f1", "coleccionable": false }
+      ]
+    }
+  ]
+}

@@ -1,16 +1,17 @@
-/* 🏢 EDIFICIO PRINCIPAL — ESTILOS BASE Y 3 VISTAS DE COLOR (<= 160 líneas) */
+/* 🏢 EDIFICIO PRINCIPAL — ESTILOS BASE, TESELAS HD Y 3 VISTAS DE COLOR (<= 160 líneas) */
 :root {
-  --bg-oceano: #070b12;
+  --bg-oceano: #090d16;
   --panel-bg: rgba(12, 16, 24, 0.88);
   --panel-borde: rgba(255, 42, 133, 0.35);
   --acento-neon: #ff2a85;
   --acento-cyan: #00f0ff;
   --texto-base: #f1f5f9;
+  --escala-mapa: 1;
   --filtro-mapa: invert(0.92) hue-rotate(185deg) brightness(0.96) contrast(1.22) saturate(1.35);
 }
 
 html[data-vista="atlas"] {
-  --bg-oceano: #20769b;
+  --bg-oceano: #2f90b0;
   --panel-bg: rgba(12, 18, 28, 0.88);
   --panel-borde: rgba(0, 240, 255, 0.35);
   --acento-neon: #ff2a85;
@@ -20,7 +21,7 @@ html[data-vista="atlas"] {
 }
 
 html[data-vista="satelite"] {
-  --bg-oceano: #163b4a;
+  --bg-oceano: #1c5266;
   --panel-bg: rgba(10, 22, 32, 0.9);
   --panel-borde: rgba(16, 185, 129, 0.4);
   --acento-neon: #10b981;
@@ -39,7 +40,7 @@ html, body {
 
 #edificio-mapa {
   position: relative; width: 100vw; height: 100vh;
-  overflow: hidden; background: radial-gradient(circle at center, rgba(0, 240, 255, 0.06), var(--bg-oceano) 75%);
+  overflow: hidden; background: var(--bg-oceano);
 }
 
 #escenario-mapa {
@@ -50,7 +51,7 @@ html, body {
 
 #lienzo-mapa {
   position: absolute; top: 0; left: 0;
-  width: 1600px; height: 1522px;
+  width: 1536px; height: 1536px;
   transform-origin: 0 0;
   will-change: transform;
   transform: translate3d(0px, 0px, 0) scale(1);
@@ -61,42 +62,47 @@ html, body {
   width: 100%; height: 100%;
   filter: var(--filtro-mapa);
   transition: filter 0.25s ease;
-  border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 0 90px rgba(0, 0, 0, 0.75);
 }
 
 #imagen-mapa-leonida {
   width: 100%; height: 100%;
-  object-fit: cover; display: block;
+  object-fit: fill; display: block;
   pointer-events: none;
 }
 
-#capa-regiones-etiquetas, #capa-iconos, #capa-pines {
+#capa-teselas-hd, #capa-regiones-etiquetas, #capa-iconos, #capa-pines {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   pointer-events: none;
 }
 
+.tesela-hd {
+  position: absolute; display: block;
+  pointer-events: none; opacity: 0;
+  transition: opacity 0.14s ease-out;
+}
+.tesela-hd.visible { opacity: 1; }
+
 .etiqueta-region {
-  position: absolute; transform: translate(-50%, -50%);
-  padding: 0.3rem 0.75rem; border-radius: 999px;
-  background: rgba(9, 12, 20, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  color: #fff; font-size: 0.78rem; font-weight: 800;
-  letter-spacing: 0.1em; text-transform: uppercase;
+  position: absolute;
+  transform: translate(-50%, -50%) scale(calc(1 / max(1, var(--escala-mapa, 1))));
+  padding: 0.32rem 0.78rem; border-radius: 999px;
+  background: rgba(9, 12, 20, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #fff; font-size: 0.76rem; font-weight: 800;
+  letter-spacing: 0.09em; text-transform: uppercase;
   pointer-events: auto; cursor: pointer;
   backdrop-filter: blur(4px);
-  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  transition: border-color 0.15s ease, background 0.15s ease;
   white-space: nowrap;
 }
 .etiqueta-region:hover {
-  transform: translate(-50%, -50%) scale(1.08);
   border-color: var(--acento-cyan);
-  background: rgba(255, 42, 133, 0.85);
+  background: rgba(255, 42, 133, 0.9);
 }
 
-/* 🎛️ CONTROLES DEL EDIFICIO (Vistas, Zoom y Coordenadas) */
+/* 🎛️ CONTROLES DEL EDIFICIO (Vistas, Zoom HD y Coordenadas) */
 #controles-edificio {
   position: fixed; right: 16px; bottom: 16px; z-index: 40;
   display: flex; flex-direction: column; gap: 10px; align-items: flex-end;
