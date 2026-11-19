@@ -30,25 +30,28 @@ Este documento define **todos los componentes con nombre exacto de carpeta y arc
 ## Fase 1: Cimientos, Estructura de Carpetas y El Vigilante (`vigilante/auditor.js`)
 *Objetivo: Crear el esqueleto completo del Centro Comercial, la configuración de GitHub/Vercel y el vigilante automático de las 250 líneas.*
 
-- [ ] **1.1** Crear las carpetas base del plano: `edificio/`, `locales/`, `recursos/mapa/`, `recursos/iconos/`, `datos/` y `vigilante/`.
-- [ ] **1.2** Crear las 6 subcarpetas de los locales independientes dentro de `locales/`: `locales/01-iconos-mapa/`, `locales/02-menu-filtros/`, `locales/03-tarjeta-info/`, `locales/04-progreso-jugador/`, `locales/05-pines-personales/` y `locales/06-modo-editor/`.
-- [ ] **1.3** Crear `.gitignore` (**≤ 30 líneas**), `vercel.json` (**≤ 50 líneas**) y `manifest.json` (**≤ 40 líneas**).
-- [ ] **1.4** Crear `index.html` (**≤ 120 líneas**) con etiquetas SEO, vista previa para WhatsApp/Discord y contenedor del Edificio.
-- [ ] **1.5** Crear `vigilante/auditor.js` (**≤ 120 líneas**): script que escanea todas las carpetas, verifica que ningún archivo pase de **250 líneas** y comprueba que no existan errores de sintaxis.
-- [ ] **1.6** 🛡️ **CONTROL DE CALIDAD FASE 1 (Vigilante):** Ejecutar `node vigilante/auditor.js` y confirmar que todos los archivos creados tienen **≤ 250 líneas** y **0 errores** de sintaxis.
-- [ ] **1.7** 🛡️ **CONTROL DE CALIDAD FASE 1 (Run & Test):** Encender el servidor en el puerto **`6000`** (`http://localhost:6000` o respaldo `6006`) y verificar que `index.html` carga con **0 errores** en consola.
+- [x] **1.1** Crear las carpetas base del plano: `edificio/`, `locales/`, `recursos/mapa/`, `recursos/iconos/`, `datos/` y `vigilante/`.
+- [x] **1.2** Crear las 6 subcarpetas de los locales independientes dentro de `locales/`: `locales/01-iconos-mapa/`, `locales/02-menu-filtros/`, `locales/03-tarjeta-info/`, `locales/04-progreso-jugador/`, `locales/05-pines-personales/` y `locales/06-modo-editor/`.
+- [x] **1.3** Crear `.gitignore` (**≤ 30 líneas**), `vercel.json` (**≤ 50 líneas**) y `manifest.json` (**≤ 40 líneas**).
+- [x] **1.4** Crear `index.html` (**≤ 120 líneas**) con etiquetas SEO, vista previa para WhatsApp/Discord y contenedor del Edificio.
+- [x] **1.5** Crear `vigilante/auditor.js` (**≤ 120 líneas**): script que escanea todas las carpetas, verifica que ningún archivo pase de **250 líneas** y comprueba que no existan errores de sintaxis.
+- [x] **1.6** 🛡️ **CONTROL DE CALIDAD FASE 1 (Vigilante):** Ejecutar `node vigilante/auditor.js` y confirmar que todos los archivos creados tienen **≤ 250 líneas** y **0 errores** de sintaxis.
+- [x] **1.7** 🛡️ **CONTROL DE CALIDAD FASE 1 (Run & Test):** Encender el servidor en el puerto **`5000`** (`http://localhost:5000`) y verificar que `index.html` carga con **0 errores** en consola.
 
 ---
 
 ## Fase 2: El Edificio Principal (`edificio/` y Mapa Oficial de Leonida)
 *Objetivo: Construir el visor del mapa a 60 FPS, el interruptor de estilo de mapa y el tablero eléctrico `central-locales.js`.*
 
-- [ ] **2.1** Colocar el mapa oficial del Estado de Leonida en `recursos/mapa/leonida-oficial.webp` con sus 6 regiones (*Vice City, Leonida Keys, Grassrivers, Port Gellhorn, Ambrosia y Mount Kalaga*).
-- [ ] **2.2** Construir `edificio/edificio.css` (**≤ 160 líneas**) con diseño a pantalla completa y los 3 modos visuales de color (Radar Oscuro / Atlas / Satélite).
-- [ ] **2.3** Construir `edificio/visor-mapa.js` (**≤ 200 líneas**) con arrastre fluido a 60 FPS, zoom con rueda/pellizco, botón de cambio de vista del mapa y lectura de enlaces directos (`#punto=`).
-- [ ] **2.4** Construir `edificio/central-locales.js` (**≤ 150 líneas**) con los interruptores de encendido/apagado de los 6 locales y protección anti-fallos (`try / catch`).
-- [ ] **2.5** 🛡️ **CONTROL DE CALIDAD FASE 2 (Vigilante):** Ejecutar `node vigilante/auditor.js` y confirmar que `edificio.css`, `visor-mapa.js` y `central-locales.js` tienen **≤ 250 líneas**.
-- [ ] **2.6** 🛡️ **CONTROL DE CALIDAD FASE 2 (Run & Test):** Hacer **Run & Test** en el puerto local (`6000` / `6006`) y comprobar que el mapa se mueve, hace zoom a 60 FPS, cambia entre las 3 vistas de color y la consola marca **0 errores**.
+- [x] **2.1** Colocar el mapa oficial del Estado de Leonida en `recursos/mapa/leonida-oficial.webp` con sus 6 regiones (*Vice City, Leonida Keys, Grassrivers, Port Gellhorn, Ambrosia y Mount Kalaga*).
+- [x] **2.2** Construir `edificio/edificio.css` (**≤ 160 líneas**) con diseño a pantalla completa y los 3 modos visuales de color (Radar Oscuro / Atlas / Satélite).
+- [x] **2.3** Construir `edificio/visor-mapa.js` (**≤ 200 líneas**) con arrastre fluido a 60 FPS, zoom con rueda/pellizco, botón de cambio de vista del mapa y lectura de enlaces directos (`#punto=`).
+- [x] **2.4** Construir `edificio/central-locales.js` (**≤ 150 líneas**) con los interruptores de encendido/apagado de los 6 locales y protección anti-fallos (`try / catch`).
+- [x] **2.5** 🛡️ **CONTROL DE CALIDAD FASE 2 (Vigilante):** Ejecutar `node vigilante/auditor.js` y confirmar que `edificio.css`, `visor-mapa.js` y `central-locales.js` tienen **≤ 250 líneas**.
+- [x] **2.6** 🛡️ **CONTROL DE CALIDAD FASE 2 (Run & Test):** Hacer **Run & Test** en el puerto local `5000` (`http://localhost:5000`) y comprobar que el mapa se mueve, hace zoom a 60 FPS, cambia entre las 3 vistas de color y la consola marca **0 errores**.
+- [ ] **2.7** Extraer directamente de IGN las cuadrículas originales en Alta Definición (*Tiles* de zoom alto donde se ven todas las cuadras, autopistas amarillas, rotondas y edificios) y ensamblarlas en Ultra Alta Resolución (4K / 8K) en `recursos/mapa/leonida-oficial.webp` (o sistema de teselas HD bajo demanda).
+- [ ] **2.8** Actualizar `edificio/visor-mapa.js` (**≤ 200 líneas**) y `edificio/edificio.css` (**≤ 160 líneas**) para renderizar el mapa HD a nivel de calle (zoom hasta 600%+) con nitidez total a 60 FPS.
+- [ ] **2.9** 🛡️ **CONTROL DE CALIDAD FASE 2 HD (Vigilante + Run & Test):** Ejecutar `node vigilante/auditor.js` y verificar en `http://localhost:5000` que al acercar el zoom al máximo las calles, tréboles de autopista y edificios se ven 100% nítidos como en IGN con **0 errores**.
 
 ---
 
@@ -123,5 +126,4 @@ Este documento define **todos los componentes con nombre exacto de carpeta y arc
 ---
 
 ## Configuración de Vista Previa Local (Puerto de Trabajo)
-* **Puerto Oficial del Proyecto:** `6000` (`http://localhost:6000`)
-* *(Nota práctica: Si el navegador Chrome/Edge muestra bloqueo interno en el número `6000` por reserva del sistema, el servidor también responderá automáticamente en el puerto gemelo `6006` -> `http://localhost:6006`)*.
+* **Puerto Oficial del Proyecto:** `5000` (`http://localhost:5000`)

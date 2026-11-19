@@ -1,0 +1,17 @@
+# Dependencias y paquetes temporales
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Sistema Operativo y Editores
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+
+# Despliegue local y archivos temporales
+.vercel/
+*.tmp
+*.bak
+*.log

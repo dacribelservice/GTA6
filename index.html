@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es" data-vista="atlas">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Mapa Interactivo Oficial de GTA 6 — Estado de Leonida</title>
+  <meta name="description" content="Explora el mapa interactivo oficial de GTA 6 (Estado de Leonida): Vice City, Leonida Keys, Grassrivers, Port Gellhorn, Ambrosia y Mount Kalaga. Coleccionables, filtros y progreso sin cuenta.">
+  <meta name="theme-color" content="#090b10">
+  <!-- Open Graph / WhatsApp / Discord -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Mapa Interactivo Oficial de GTA 6 — Estado de Leonida">
+  <meta property="og:description" content="Las 6 regiones de Leonida, coleccionables WAiNK, golpes, talleres y progreso guardado sin cuenta a 60 FPS.">
+  <meta property="og:site_name" content="Leonida Interactive Map">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mapa Interactivo Oficial de GTA 6 — Estado de Leonida">
+  <meta name="twitter:description" content="Explora Vice City y todo el Estado de Leonida con filtros estilo IGN y progreso local.">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23090b10'/%3E%3Ctext x='50' y='66' font-family='sans-serif' font-size='48' font-weight='900' fill='%23ff2a85' text-anchor='middle'%3EVI%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="edificio/edificio.css">
+</head>
+<body>
+  <!-- 🏢 EL EDIFICIO PRINCIPAL (Contenedor Inquebrantable) -->
+  <main id="edificio-mapa" aria-label="Mapa Interactivo del Estado de Leonida">
+    <div id="escenario-mapa">
+      <div id="lienzo-mapa">
+        <div id="capa-terreno"></div>
+        <!-- Capas reservadas para Local #1 (Iconos) y Local #5 (Pines Personales) -->
+        <div id="capa-iconos" aria-live="polite"></div>
+        <div id="capa-pines" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <!-- Controles del Edificio (Zoom y Vistas: Radar / Atlas / Satélite) -->
+    <nav id="controles-edificio" aria-label="Controles del mapa"></nav>
+
+    <!-- Espacios de conexión para los Locales #2, #3, #4 y #6 -->
+    <aside id="local-menu-filtros"></aside>
+    <section id="local-tarjeta-info" aria-live="polite"></section>
+    <section id="local-progreso-jugador"></section>
+    <section id="local-modo-editor"></section>
+  </main>
+  <script type="module" src="edificio/central-locales.js"></script>
+</body>
+</html>
