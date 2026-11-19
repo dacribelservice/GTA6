@@ -96,14 +96,13 @@ GTA6/
 │   ├── ubicaciones-vice-city.json # Puntos del mapa en Vice City con su (X%, Y%)
 │   └── ubicaciones-regiones.json  # Puntos del resto de regiones de Leonida con su (X%, Y%)
 │
-├── Markdown/                    # 📄 Documentación de filosofía del proyecto
-│   └── fundamentos/
-│       └── conceptos.md         # Los 4 pilares: Centro Comercial, 100% Speed, Lápiz de Carbón y ≤ 250 Líneas
-│
-└── Mapa/                        # 📋 Documentación técnica y hoja de ruta del mapa
-    ├── mapa.md                  # Plan maestro del mapa y catálogo de iconos de IGN
-    ├── mapa.word.md             # Checklist maestra de construcción paso a paso por fases
-    └── plano.md                 # Este documento: plano tecnológico y estructura de código
+└── Markdown/                    # 📄 Documentación de filosofía, plano y hoja de ruta
+    ├── fundamentos/
+    │   └── conceptos.md         # Los 4 pilares: Centro Comercial, 100% Speed, Lápiz de Carbón y ≤ 250 Líneas
+    └── Mapa/
+        ├── mapa.md              # Plan maestro del mapa y catálogo de iconos de IGN
+        ├── mapa.word.md         # Checklist maestra de construcción paso a paso por fases
+        └── plano.md             # Este documento: plano tecnológico y estructura de código
 ```
 
 ---
