@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "2.0.0",
   "estado": "Leonida",
   "regiones": [
     "Vice City",
@@ -9,66 +9,190 @@
     "Ambrosia",
     "Mount Kalaga National Park"
   ],
+  "archivosUbicaciones": [
+    "datos/ubicaciones-waink-exploracion.json",
+    "datos/ubicaciones-robos-ilegal-1.json",
+    "datos/ubicaciones-robos-ilegal-2.json",
+    "datos/ubicaciones-vehiculos-1.json",
+    "datos/ubicaciones-vehiculos-2.json",
+    "datos/ubicaciones-comida-estilo-1.json",
+    "datos/ubicaciones-comida-estilo-2.json",
+    "datos/ubicaciones-stunts-1.json",
+    "datos/ubicaciones-stunts-2.json",
+    "datos/ubicaciones-interes-actividades.json",
+    "datos/ubicaciones-carreras-deportes.json"
+  ],
   "grupos": [
     {
-      "id": "coleccionables-waink",
-      "nombre": "Coleccionables App WAiNK",
+      "id": "waink-locations",
+      "nombre": "WAiNK Locations (Coleccionables)",
       "colorGrupo": "#ff2a85",
       "categorias": [
-        { "id": "landmarks", "nombre": "Landmarks (Puntos Emblemáticos)", "icono": "icono-landmarks", "color": "#ff2a85", "coleccionable": true },
-        { "id": "curiosidades", "nombre": "Curiosities (Curiosidades)", "icono": "icono-curiosidades", "color": "#e879f9", "coleccionable": true },
-        { "id": "esculturas", "nombre": "Sculptures (Esculturas)", "icono": "icono-esculturas", "color": "#c084fc", "coleccionable": true },
-        { "id": "carteles-peewees", "nombre": "Peewees Billboards (Carteles)", "icono": "icono-carteles-peewees", "color": "#f472b6", "coleccionable": true },
-        { "id": "grafitis-no-flusher", "nombre": "No Flusher Tags (Grafitis)", "icono": "icono-grafitis-no-flusher", "color": "#fb7185", "coleccionable": true }
+        {"id":"landmarks","nombre":"Landmarks (Puntos Emblemáticos)","icono":"icono-landmarks","color":"#ff2a85","coleccionable":true,"activaPorDefecto":true,"zoomMinimo":0},
+        {"id":"curiosidades","nombre":"Curiosities (Curiosidades)","icono":"icono-curiosidades","color":"#e879f9","coleccionable":true,"activaPorDefecto":true,"zoomMinimo":0},
+        {"id":"esculturas","nombre":"Sculptures (Esculturas)","icono":"icono-esculturas","color":"#c084fc","coleccionable":true,"activaPorDefecto":true,"zoomMinimo":0}
       ]
     },
     {
-      "id": "robos-golpes",
-      "nombre": "Robos y Operaciones Ilegales",
+      "id": "exploration",
+      "nombre": "Exploration (Exploración)",
+      "colorGrupo": "#f472b6",
+      "categorias": [
+        {"id":"book-swap","nombre":"Book Swap (Intercambio Libros)","icono":"icono-libros","color":"#fb7185","coleccionable":true,"activaPorDefecto":true,"zoomMinimo":0},
+        {"id":"magazines","nombre":"Magazines (Revistas Ocultas)","icono":"icono-revistas","color":"#f472b6","coleccionable":true,"activaPorDefecto":true,"zoomMinimo":0},
+        {"id":"unique-playlist","nombre":"Unique Playlists (Listas Música)","icono":"icono-musica","color":"#e879f9","coleccionable":true,"activaPorDefecto":true,"zoomMinimo":0},
+        {"id":"mural-1010","nombre":"10-10 Murals (Murales 10-10)","icono":"icono-murales","color":"#fda4af","coleccionable":true,"activaPorDefecto":true,"zoomMinimo":0}
+      ]
+    },
+    {
+      "id": "robberies",
+      "nombre": "Robberies (Robos y Asaltos)",
       "colorGrupo": "#10b981",
       "categorias": [
-        { "id": "bancos", "nombre": "Banks (Bancos Locales)", "icono": "icono-bancos", "color": "#10b981", "coleccionable": false },
-        { "id": "grandes-bancos", "nombre": "Big Banks (Grandes Bancos)", "icono": "icono-grandes-bancos", "color": "#059669", "coleccionable": false },
-        { "id": "joyerias", "nombre": "Jewelry Stores (Joyerías)", "icono": "icono-joyerias", "color": "#34d399", "coleccionable": false },
-        { "id": "casas-empeno", "nombre": "Pawn Shops (Casas de Empeño)", "icono": "icono-casas-empeno", "color": "#6ee7b7", "coleccionable": false },
-        { "id": "prestamos-rapidos", "nombre": "Payday Loans (Préstamos Rápidos)", "icono": "icono-prestamos-rapidos", "color": "#a7f3d0", "coleccionable": false }
+        {"id":"bancos","nombre":"Banks (Bancos)","icono":"icono-bancos","color":"#10b981","coleccionable":false,"activaPorDefecto":true,"zoomMinimo":0},
+        {"id":"grandes-bancos","nombre":"Big Banks (Grandes Bancos)","icono":"icono-grandes-bancos","color":"#059669","coleccionable":false,"activaPorDefecto":true,"zoomMinimo":0},
+        {"id":"prestamos-rapidos","nombre":"Payday Loans (Préstamos)","icono":"icono-prestamos-rapidos","color":"#34d399","coleccionable":false,"activaPorDefecto":true,"zoomMinimo":0},
+        {"id":"joyerias-bajas","nombre":"Low-End Jewelry (Joyerías Bajas)","icono":"icono-joyerias","color":"#6ee7b7","coleccionable":false,"activaPorDefecto":true,"zoomMinimo":0},
+        {"id":"joyerias","nombre":"High-End Jewelry (Joyerías Altas)","icono":"icono-joyerias","color":"#10b981","coleccionable":false,"activaPorDefecto":true,"zoomMinimo":0},
+        {"id":"casas-empeno","nombre":"Pawn Shops (Casas Empeño)","icono":"icono-casas-empeno","color":"#a7f3d0","coleccionable":false,"activaPorDefecto":true,"zoomMinimo":0},
+        {"id":"cajeros-remolcables","nombre":"Towable ATMs (Cajeros Remolque)","icono":"icono-cajeros-remolcables","color":"#047857","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":1.1},
+        {"id":"cajas-fuertes","nombre":"Safes (Cajas Fuertes)","icono":"icono-cajas-fuertes","color":"#14b8a6","coleccionable":true,"activaPorDefecto":true,"zoomMinimo":0},
+        {"id":"tiendas-24-7","nombre":"24/7 Stores (Tiendas Conveniencia)","icono":"icono-tiendas-24-7","color":"#06b6d4","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":1.1},
+        {"id":"comida-rapida","nombre":"Fast Food (Comida Rápida)","icono":"icono-comida-rapida","color":"#2dd4bf","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"licorerias","nombre":"Liquor Stores (Licorerías)","icono":"icono-licorerias","color":"#0d9488","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0}
       ]
     },
     {
-      "id": "vehiculos-servicios",
-      "nombre": "Vehículos, Servicios e Infraestructura",
+      "id": "illegal-operations",
+      "nombre": "Illegal Operations (Operaciones Ilegales)",
+      "colorGrupo": "#ef4444",
+      "categorias": [
+        {"id":"contactos","nombre":"Contacts (Contactos del Crimen)","icono":"icono-contactos","color":"#ef4444","coleccionable":false,"activaPorDefecto":true,"zoomMinimo":0},
+        {"id":"kingfishers","nombre":"Kingfishers Syndicate","icono":"icono-operacion-ilegal","color":"#dc2626","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"kolt-associates","nombre":"Kolt Associates","icono":"icono-operacion-ilegal","color":"#b91c1c","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"m7","nombre":"M7 Syndicate","icono":"icono-operacion-ilegal","color":"#f87171","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"la-polilla-negra","nombre":"La Polilla Negra","icono":"icono-operacion-ilegal","color":"#ef4444","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"final-chapter","nombre":"Final Chapter MC","icono":"icono-operacion-ilegal","color":"#e11d48","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"san4san","nombre":"San4San Syndicate","icono":"icono-operacion-ilegal","color":"#be123c","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"ptt-youngins","nombre":"PTT Youngins","icono":"icono-operacion-ilegal","color":"#f43f5e","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"guardia-brothers","nombre":"Guardia Brothers","icono":"icono-operacion-ilegal","color":"#fda4af","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"criminales","nombre":"Wanted Criminals (Criminales)","icono":"icono-criminales","color":"#991b1b","coleccionable":true,"activaPorDefecto":true,"zoomMinimo":0}
+      ]
+    },
+    {
+      "id": "vehicles",
+      "nombre": "Vehicles & Transport (Vehículos)",
       "colorGrupo": "#00f0ff",
       "categorias": [
-        { "id": "pay-n-spray", "nombre": "Pay 'n' Spray (Pintura y Reparación)", "icono": "icono-pay-n-spray", "color": "#00f0ff", "coleccionable": false },
-        { "id": "talleres-mod", "nombre": "Mod Shops (Talleres de Tunning)", "icono": "icono-talleres-mod", "color": "#38bdf8", "coleccionable": false },
-        { "id": "gasolineras", "nombre": "Gas Stations (Gasolineras)", "icono": "icono-gasolineras", "color": "#0ea5e9", "coleccionable": false },
-        { "id": "cargadores-electricos", "nombre": "Electric Chargers (Cargadores EV)", "icono": "icono-cargadores-electricos", "color": "#22d3ee", "coleccionable": false },
-        { "id": "cajeros-remolcables", "nombre": "Towable ATMs (Cajeros Remolcables)", "icono": "icono-cajeros-remolcables", "color": "#67e8f9", "coleccionable": false },
-        { "id": "transporte-publico", "nombre": "Transit (Tren, Ferry y Bus)", "icono": "icono-transporte-publico", "color": "#7dd3fc", "coleccionable": false }
+        {"id":"pay-n-spray","nombre":"Pay 'n' Spray (Reparación)","icono":"icono-pay-n-spray","color":"#00f0ff","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"talleres-mod","nombre":"Mod Shops (Talleres Tunning)","icono":"icono-talleres-mod","color":"#38bdf8","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"gasolineras","nombre":"Gas Stations (Gasolineras)","icono":"icono-gasolineras","color":"#0ea5e9","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":1.05},
+        {"id":"lavado-autos","nombre":"Car Wash (Lavado de Autos)","icono":"icono-lavado-autos","color":"#0284c7","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"cargadores-electricos","nombre":"Electric Chargers (Cargadores EV)","icono":"icono-cargadores-electricos","color":"#22d3ee","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":1.1},
+        {"id":"estaciones-tren","nombre":"Train Stations (Estaciones Tren)","icono":"icono-estaciones-tren","color":"#06b6d4","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"terminal-ferry","nombre":"Ferry Terminals (Terminales Ferry)","icono":"icono-terminal-ferry","color":"#0891b2","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"vehiculos-alquiler","nombre":"Vehicle Rentals (Alquiler)","icono":"icono-vehiculos-alquiler","color":"#7dd3fc","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"garajes-comprables","nombre":"Purchasable Garages (Garajes)","icono":"icono-garajes-comprables","color":"#38bdf8","coleccionable":true,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"garajes","nombre":"Garages (Garajes de Servicio)","icono":"icono-garajes","color":"#60a5fa","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"vehiculos-unicos","nombre":"Unique Vehicles (Vehículos Únicos)","icono":"icono-vehiculos-unicos","color":"#f97316","coleccionable":true,"activaPorDefecto":true,"zoomMinimo":0},
+        {"id":"vehiculos-randy","nombre":"Randy's Vehicles","icono":"icono-vehiculos-unicos","color":"#fb923c","coleccionable":true,"activaPorDefecto":true,"zoomMinimo":0},
+        {"id":"vehiculos-moses","nombre":"Moses' Vehicles","icono":"icono-vehiculos-unicos","color":"#fdba74","coleccionable":true,"activaPorDefecto":true,"zoomMinimo":0},
+        {"id":"paradas-bus","nombre":"Bus Stops (Paradas Autobús)","icono":"icono-paradas-bus","color":"#93c5fd","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":1.25}
       ]
     },
     {
-      "id": "propiedades-activos",
-      "nombre": "Propiedades y Activos del Mundo",
+      "id": "food-drink",
+      "nombre": "Food & Drink (Comida y Bebida)",
       "colorGrupo": "#f59e0b",
       "categorias": [
-        { "id": "pisos-francos", "nombre": "Safehouses (Pisos Francos y Cajas)", "icono": "icono-pisos-francos", "color": "#f59e0b", "coleccionable": true },
-        { "id": "garajes-comprables", "nombre": "Purchasable Garages (Garajes)", "icono": "icono-garajes-comprables", "color": "#fbbf24", "coleccionable": true },
-        { "id": "vehiculos-unicos", "nombre": "Standout Vehicles (Vehículos Únicos)", "icono": "icono-vehiculos-unicos", "color": "#f97316", "coleccionable": true },
-        { "id": "viaje-rapido", "nombre": "Fast-Travel Points (Viaje Rápido)", "icono": "icono-viaje-rapido", "color": "#fdba74", "coleccionable": false }
+        {"id":"cafeterias","nombre":"Cafés & Coffee (Cafeterías)","icono":"icono-cafeterias","color":"#f59e0b","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":1.1},
+        {"id":"bares-clubs","nombre":"Bars & Clubs (Bares y Clubes)","icono":"icono-bares-clubs","color":"#d97706","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":1.1},
+        {"id":"comida-callejera","nombre":"Street Food (Comida Callejera)","icono":"icono-comida-callejera","color":"#fbbf24","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":1.1}
       ]
     },
     {
-      "id": "tiendas-personalizacion",
-      "nombre": "Tiendas, Comercio y Personalización",
+      "id": "style",
+      "nombre": "Style & Commerce (Moda y Comercio)",
       "colorGrupo": "#a855f7",
       "categorias": [
-        { "id": "tiendas-24-7", "nombre": "Convenience Stores (Tiendas 24/7)", "icono": "icono-tiendas-24-7", "color": "#a855f7", "coleccionable": false },
-        { "id": "comida-rapida", "nombre": "Fast Food (Comida Rápida)", "icono": "icono-comida-rapida", "color": "#f43f5e", "coleccionable": false },
-        { "id": "bares-clubs", "nombre": "Bars & Clubs (Bares y Clubes)", "icono": "icono-bares-clubs", "color": "#ec4899", "coleccionable": false },
-        { "id": "tiendas-ropa", "nombre": "Clothing Stores (Tiendas de Ropa)", "icono": "icono-tiendas-ropa", "color": "#8b5cf6", "coleccionable": false },
-        { "id": "peluquerias", "nombre": "Hair & Beauty (Peluquerías)", "icono": "icono-peluquerias", "color": "#d946ef", "coleccionable": false },
-        { "id": "tatuajes", "nombre": "Tattoo Parlors (Estudios de Tatuaje)", "icono": "icono-tatuajes", "color": "#6366f1", "coleccionable": false }
+        {"id":"ropa-casual","nombre":"Casual Wear (Ropa Casual)","icono":"icono-tiendas-ropa","color":"#a855f7","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"ropa-deportiva","nombre":"Sportswear (Ropa Deportiva)","icono":"icono-tiendas-ropa","color":"#9333ea","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"ropa-formal","nombre":"Formal Wear (Ropa Formal)","icono":"icono-tiendas-ropa","color":"#7e22ce","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"ropa-playa","nombre":"Beachwear (Ropa de Playa)","icono":"icono-tiendas-ropa","color":"#c084fc","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"tiendas-segunda","nombre":"Thrift Shops (Tiendas Segunda)","icono":"icono-tiendas-ropa","color":"#e9d5ff","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"calzado","nombre":"Footwear (Zapaterías)","icono":"icono-calzado","color":"#8b5cf6","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"peluquerias","nombre":"Hair & Beauty (Peluquerías)","icono":"icono-peluquerias","color":"#d946ef","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"tatuajes","nombre":"Tattoo Parlors (Tatuajes)","icono":"icono-tatuajes","color":"#6366f1","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"electronica","nombre":"Electronics (Electrónica)","icono":"icono-electronica","color":"#818cf8","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0}
+      ]
+    },
+    {
+      "id": "stunts",
+      "nombre": "Stunts (Acrobacias y Saltos)",
+      "colorGrupo": "#ec4899",
+      "categorias": [
+        {"id":"stunt-jumps","nombre":"Stunt Jumps (Saltos Únicos)","icono":"icono-stunt-jumps","color":"#ec4899","coleccionable":true,"activaPorDefecto":false,"zoomMinimo":1.15},
+        {"id":"saltos-base","nombre":"Base Jumps (Saltos Base)","icono":"icono-saltos-base","color":"#f43f5e","coleccionable":true,"activaPorDefecto":false,"zoomMinimo":1.05},
+        {"id":"knife-flights","nombre":"Knife Flights (Vuelos Cuchillo)","icono":"icono-knife-flights","color":"#fb7185","coleccionable":true,"activaPorDefecto":false,"zoomMinimo":1.05},
+        {"id":"bajo-puente","nombre":"Under the Bridge (Bajo el Puente)","icono":"icono-bajo-puente","color":"#fda4af","coleccionable":true,"activaPorDefecto":false,"zoomMinimo":1.2}
+      ]
+    },
+    {
+      "id": "points-of-interest",
+      "nombre": "Points of Interest (Puntos de Interés)",
+      "colorGrupo": "#3b82f6",
+      "categorias": [
+        {"id":"cajeros-atm","nombre":"ATMs (Cajeros Automáticos)","icono":"icono-cajeros-atm","color":"#3b82f6","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":1.2},
+        {"id":"gimnasios","nombre":"Gyms (Gimnasios)","icono":"icono-gimnasios","color":"#2563eb","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"clubes","nombre":"Gentlemen's Clubs (Clubes)","icono":"icono-clubes","color":"#1d4ed8","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0}
+      ]
+    },
+    {
+      "id": "activities",
+      "nombre": "Activities (Actividades y Armas)",
+      "colorGrupo": "#84cc16",
+      "categorias": [
+        {"id":"ammu-nation","nombre":"Ammu-Nation (Tiendas de Armas)","icono":"icono-ammu-nation","color":"#84cc16","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"galerias-tiro","nombre":"Shooting Ranges (Galerías de Tiro)","icono":"icono-galerias-tiro","color":"#65a30d","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"recreativas-arcade","nombre":"Arcades (Salones Recreativos)","icono":"icono-recreativas-arcade","color":"#4d7c0f","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"zonas-pesca","nombre":"Fishing Spots (Zonas de Pesca)","icono":"icono-zonas-pesca","color":"#a3e635","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0}
+      ]
+    },
+    {
+      "id": "sports",
+      "nombre": "Sports (Deportes y Minijuegos)",
+      "colorGrupo": "#14b8a6",
+      "categorias": [
+        {"id":"canastas-basket","nombre":"Basketball Courts (Baloncesto)","icono":"icono-canastas-basket","color":"#14b8a6","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":1.15},
+        {"id":"campos-golf","nombre":"Golf Courses (Campos de Golf)","icono":"icono-campos-golf","color":"#0d9488","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"mini-golf","nombre":"Mini Golf (Minigolf)","icono":"icono-campos-golf","color":"#0f766e","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"mesas-billar","nombre":"Pool Tables (Mesas de Billar)","icono":"icono-mesas-billar","color":"#2dd4bf","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0}
+      ]
+    },
+    {
+      "id": "collectible-cards",
+      "nombre": "Collectible Cards (Cartas)",
+      "colorGrupo": "#eab308",
+      "categorias": [
+        {"id":"jack-of-hearts","nombre":"Jack of Hearts (Cartas Jack)","icono":"icono-cartas","color":"#eab308","coleccionable":true,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"delights","nombre":"Delights Cards (Cartas Delights)","icono":"icono-cartas","color":"#ca8a04","coleccionable":true,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"nine-1-nine","nombre":"Nine-1-Nine Cards (Cartas 919)","icono":"icono-cartas","color":"#facc15","coleccionable":true,"activaPorDefecto":false,"zoomMinimo":0}
+      ]
+    },
+    {
+      "id": "racing",
+      "nombre": "Racing (Carreras y Circuitos)",
+      "colorGrupo": "#f97316",
+      "categorias": [
+        {"id":"intro-carreras","nombre":"Intro to Racing (Intro Carreras)","icono":"icono-carreras","color":"#f97316","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"desafios-carreras","nombre":"Street Races (Desafíos Callejeros)","icono":"icono-carreras","color":"#ea580c","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"thrillbilly-mud","nombre":"Thrillbilly Mud Bog (Barro)","icono":"icono-carreras","color":"#c2410c","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"animal-crackers","nombre":"Animal Crackers Track","icono":"icono-carreras","color":"#9a3412","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"hit-n-run","nombre":"Hit 'N' Run Track","icono":"icono-carreras","color":"#fb923c","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"speedway-boone","nombre":"Boone County Speedway","icono":"icono-carreras","color":"#f97316","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"raceway-ambrosia","nombre":"Ambrosia Raceway","icono":"icono-carreras","color":"#ea580c","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"raceway-gellhorn","nombre":"Port Gellhorn Raceway","icono":"icono-carreras","color":"#c2410c","coleccionable":false,"activaPorDefecto":false,"zoomMinimo":0},
+        {"id":"drones-top-fun","nombre":"Top Fun Drone Challenges","icono":"icono-drones","color":"#fbbf24","coleccionable":true,"activaPorDefecto":false,"zoomMinimo":1.1}
       ]
     }
   ]

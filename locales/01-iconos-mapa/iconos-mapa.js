@@ -1,15 +1,10 @@
 /**
  * 📍 LOCAL #1: CAPA DE ICONOS DEL MAPA (iconos-mapa.js <= 180 líneas)
- * Carga el Sprite SVG único y las ubicaciones de Leonida, aplicando Renderizado por
- * Ventana Visible (Viewport Culling) para montar en el DOM solo los pines en pantalla.
+ * Carga el Sprite SVG único y ubicaciones de Leonida con Promise.all().
+ * Aplica Viewport Culling + LOD por Zoom para mantener 60 FPS y DOM liviano.
  */
 
-const RUTAS_DATOS = {
-  sprite: 'recursos/iconos/lamina-iconos.svg',
-  categorias: 'datos/categorias.json',
-  viceCity: 'datos/ubicaciones-vice-city.json',
-  regiones: 'datos/ubicaciones-regiones.json'
-};
+const RUTAS = { sprite: 'recursos/iconos/lamina-iconos.svg', categorias: 'datos/categorias.json' };
 const mapaCategorias = new Map(), mapaUbicaciones = new Map(), nodosCache = new Map(), montados = new Set();
 const filtro = { cats: null, q: '', reg: 'todas' };
 const vista = { xMin: 0, xMax: 100, yMin: 0, yMax: 100, tx: 0, ty: 0, escala: 1, tamanoBase: 1536 };
@@ -30,8 +25,8 @@ function inyectarSpriteSVG(svgTexto) {
 
 function indexarCategorias(catData) {
   mapaCategorias.clear();
-  for (const grupo of catData.grupos || []) {
-    for (const cat of grupo.categorias || []) mapaCategorias.set(cat.id, cat);
+  for (const g of catData.grupos || []) {
+    for (const c of g.categorias || []) mapaCategorias.set(c.id, c);
   }
 }
 
@@ -57,10 +52,14 @@ const enVentana = (u) => u.x >= vista.xMin && u.x <= vista.xMax && u.y >= vista.
 function cumpleFiltro(u) {
   if (filtro.cats && !filtro.cats.has(u.categoria)) return false;
   if (filtro.reg !== 'todas' && u.region !== filtro.reg) return false;
+  const cat = mapaCategorias.get(u.categoria);
+  if (cat?.zoomMinimo && vista.escala < cat.zoomMinimo && !filtro.q && u.id !== idSeleccionado) return false;
   if (!filtro.q) return true;
   return u.titulo.toLowerCase().includes(filtro.q)
     || (u.descripcion && u.descripcion.toLowerCase().includes(filtro.q))
-    || u.region.toLowerCase().includes(filtro.q);
+    || u.region.toLowerCase().includes(filtro.q)
+    || u.categoria.toLowerCase().includes(filtro.q)
+    || (cat && cat.nombre.toLowerCase().includes(filtro.q));
 }
 
 function obtenerBoton(u) {
@@ -72,10 +71,7 @@ function obtenerBoton(u) {
 function sincronizarVisibles() {
   if (!capaIconos) return;
   const pinZoom = vista.escala < 0.75 ? Math.max(0.65, vista.escala / 0.75).toFixed(3) : '1';
-  if (pinZoom !== pinZoomAplicado) {
-    pinZoomAplicado = pinZoom;
-    capaIconos.style.setProperty('--pin-zoom', pinZoom);
-  }
+  if (pinZoom !== pinZoomAplicado) { pinZoomAplicado = pinZoom; capaIconos.style.setProperty('--pin-zoom', pinZoom); }
   const base = vista.tamanoBase * vista.escala;
   const visiblesAhora = new Set(), fragmento = document.createDocumentFragment();
   for (const u of ubicaciones) {
@@ -140,12 +136,15 @@ function aplicarProgreso({ completados: lista } = {}) {
 export async function iniciarIconosMapa(contexto) {
   capaIconos = document.getElementById('capa-iconos');
   if (!capaIconos) return;
-  const [svgTexto, catData, viceCity, regiones] = await Promise.all([
-    cargarRecurso(RUTAS_DATOS.sprite, 'text'), cargarRecurso(RUTAS_DATOS.categorias),
-    cargarRecurso(RUTAS_DATOS.viceCity), cargarRecurso(RUTAS_DATOS.regiones)
+  const [svgTexto, catData] = await Promise.all([
+    cargarRecurso(RUTAS.sprite, 'text'), cargarRecurso(RUTAS.categorias)
   ]);
   inyectarSpriteSVG(svgTexto); indexarCategorias(catData);
-  ubicaciones = [...viceCity, ...regiones];
+  const iniciales = new Set([...mapaCategorias.values()].filter((c) => c.activaPorDefecto !== false).map((c) => c.id));
+  if (filtro.cats === null) filtro.cats = iniciales;
+  const archivos = catData.archivosUbicaciones || ['datos/ubicaciones-vice-city.json', 'datos/ubicaciones-regiones.json'];
+  const bloques = await Promise.all(archivos.map((r) => cargarRecurso(r)));
+  ubicaciones = bloques.flat();
   mapaUbicaciones.clear(); nodosCache.clear(); montados.clear(); capaIconos.innerHTML = '';
   for (const u of ubicaciones) mapaUbicaciones.set(u.id, u);
 
