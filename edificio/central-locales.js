@@ -6,8 +6,8 @@
 import { iniciarVisorMapa, enfocarCoordenada } from './visor-mapa.js';
 
 export const ESTADO_LOCALES = {
-  iconosMapa: false,       // Local 1 (Se enciende en Fase 4)
-  menuFiltros: false,      // Local 2 (Se enciende en Fase 5)
+  iconosMapa: true,        // Local 1: Encendido
+  menuFiltros: true,       // Local 2: Encendido
   tarjetaInfo: false,      // Local 3 (Se enciende en Fase 6)
   progresoJugador: false,  // Local 4 (Se enciende en Fase 6)
   pinesPersonales: false,  // Local 5 (Se enciende en Fase 7)

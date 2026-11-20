@@ -69,24 +69,28 @@ Este documento define **todos los componentes con nombre exacto de carpeta y arc
 ## Fase 4: Local #1 — Iconos sobre el Mapa (`locales/01-iconos-mapa/`)
 *Objetivo: Dibujar los iconos sobre el mapa en su posición exacta de forma 100% aislada.*
 
-- [ ] **4.1** Crear `locales/01-iconos-mapa/iconos-mapa.css` (**≤ 140 líneas**) con colores por categoría, animación ligera y tamaño adaptable al zoom.
-- [ ] **4.2** Crear `locales/01-iconos-mapa/iconos-mapa.js` (**≤ 180 líneas**) que lee los archivos de `datos/` y coloca cada icono SVG en su coordenada `(X%, Y%)`.
-- [ ] **4.3** Conectar el Local #1 en `edificio/central-locales.js`.
-- [ ] **4.4** 🛡️ **CONTROL DE CALIDAD FASE 4 (Vigilante):** Ejecutar `node vigilante/auditor.js` y confirmar que `iconos-mapa.js` e `iconos-mapa.css` tienen **≤ 250 líneas**.
-- [ ] **4.5** 🛡️ **CONTROL DE CALIDAD FASE 4 (Run & Test):** Verificar en el navegador que todos los iconos aparecen en su lugar exacto con **0 errores**.
-- [ ] **4.6** 🛡️ **CONTROL DE CALIDAD FASE 4 (Prueba del Centro Comercial):** Apagar temporalmente `iconosMapa: false` en `central-locales.js`, verificar que el Edificio sigue funcionando perfecto y volver a encenderlo.
+- [x] **4.1** Crear `locales/01-iconos-mapa/iconos-mapa.css` (**≤ 140 líneas**) con colores por categoría, animación ligera y tamaño adaptable al zoom.
+- [x] **4.2** Crear `locales/01-iconos-mapa/iconos-mapa.js` (**≤ 180 líneas**) que lee los archivos de `datos/` y coloca cada icono SVG en su coordenada `(X%, Y%)`.
+- [x] **4.3** Conectar el Local #1 en `edificio/central-locales.js`.
+- [x] **4.4** 🛡️ **CONTROL DE CALIDAD FASE 4 (Vigilante):** Ejecutar `node vigilante/auditor.js` y confirmar que `iconos-mapa.js` e `iconos-mapa.css` tienen **≤ 250 líneas**.
+- [x] **4.5** 🛡️ **CONTROL DE CALIDAD FASE 4 (Run & Test):** Verificar en el navegador que todos los iconos aparecen en su lugar exacto con **0 errores**.
+- [x] **4.6** 🛡️ **CONTROL DE CALIDAD FASE 4 (Prueba del Centro Comercial):** Apagar temporalmente `iconosMapa: false` en `central-locales.js`, verificar que el Edificio sigue funcionando perfecto y volver a encenderlo.
 
 ---
 
 ## Fase 5: Local #2 — Menú Lateral de Filtros y Buscador (`locales/02-menu-filtros/`)
 *Objetivo: Filtrar categorías al estilo IGN y buscar cualquier lugar por nombre o región en 1 segundo.*
 
-- [ ] **5.1** Crear `locales/02-menu-filtros/menu-filtros.css` (**≤ 180 líneas**) con diseño lateral desplegable y clicable para PC y teléfono móvil.
-- [ ] **5.2** Crear `locales/02-menu-filtros/menu-filtros.js` (**≤ 210 líneas**) con interruptores clicables por categoría, botones *"Mostrar todo / Ocultar todo"* y buscador instantáneo que mueve la cámara al punto buscado.
-- [ ] **5.3** Conectar el Local #2 en `edificio/central-locales.js`.
-- [ ] **5.4** 🛡️ **CONTROL DE CALIDAD FASE 5 (Vigilante):** Ejecutar `node vigilante/auditor.js` y confirmar que `menu-filtros.js` y `menu-filtros.css` tienen **≤ 250 líneas**.
-- [ ] **5.5** 🛡️ **CONTROL DE CALIDAD FASE 5 (Run & Test):** Probar los filtros clicables y el buscador en vivo con **0 errores de compilación**.
-- [ ] **5.6** 🛡️ **CONTROL DE CALIDAD FASE 5 (Prueba del Centro Comercial):** Apagar temporalmente `menuFiltros: false` en `central-locales.js`, comprobar que el mapa y los iconos del Local #1 siguen funcionando sin enterarse y volver a encenderlo.
+- [x] **5.1** Crear `locales/02-menu-filtros/menu-filtros.css` (**≤ 180 líneas**) con diseño lateral desplegable y clicable para PC y teléfono móvil.
+- [x] **5.2** Crear `locales/02-menu-filtros/menu-filtros.js` (**≤ 210 líneas**) con interruptores clicables por categoría, botones *"Mostrar todo / Ocultar todo"* y buscador instantáneo que mueve la cámara al punto buscado.
+- [x] **5.3** Conectar el Local #2 en `edificio/central-locales.js`.
+- [x] **5.4** 🛡️ **CONTROL DE CALIDAD FASE 5 (Vigilante):** Ejecutar `node vigilante/auditor.js` y confirmar que `menu-filtros.js` y `menu-filtros.css` tienen **≤ 250 líneas**.
+- [x] **5.5** 🛡️ **CONTROL DE CALIDAD FASE 5 (Run & Test):** Probar los filtros clicables y el buscador en vivo con **0 errores de compilación**.
+- [x] **5.6** 🛡️ **CONTROL DE CALIDAD FASE 5 (Prueba del Centro Comercial):** Apagar temporalmente `menuFiltros: false` en `central-locales.js`, comprobar que el mapa y los iconos del Local #1 siguen funcionando sin enterarse y volver a encenderlo.
+- [x] **5.7** Optimizar `edificio/visor-mapa.js` (**≤ 200 líneas**) para 60 FPS reales: agrupar arrastre/zoom en `requestAnimationFrame`, actualizar `--escala-mapa` solo en `#lienzo-mapa` y solo cuando cambie el zoom, y emitir `edificio:vista-cambiada` con el rectángulo visible `(xMin..xMax, yMin..yMax)` + margen de borde.
+- [x] **5.8** Implementar **Renderizado por Ventana Visible (*Viewport Culling*)** en `locales/01-iconos-mapa/iconos-mapa.js` (**≤ 180 líneas**): escuchar `edificio:vista-cambiada` y montar en el DOM únicamente los pines dentro de la pantalla actual que cumplen los filtros activos (ahorrando 85%–95% de CPU/GPU al hacer zoom).
+- [x] **5.9** Eliminar bloqueos y saturación GPU en CSS (`locales/01-iconos-mapa/iconos-mapa.css` **≤ 140 líneas**, `edificio/edificio.css` **≤ 160 líneas** y `locales/02-menu-filtros/menu-filtros.css` **≤ 180 líneas**): quitar `transition` sobre `transform` y `box-shadow` en reposo de los pines, reemplazar `backdrop-filter: blur(...)` sobre el lienzo por fondos translúcidos nítidos y añadir `contain: layout style paint`.
+- [x] **5.10** 🛡️ **CONTROL DE CALIDAD FASE 5 RENDIMIENTO (Vigilante + Run & Test):** Ejecutar `node vigilante/auditor.js` (**≤ 250 líneas** y **0 errores**) y comprobar en `http://localhost:5000` fluidez total a 60 FPS al arrastrar y hacer zoom máximo sin congelamientos ni desaparición de bloques o puntos.
 
 ---
 

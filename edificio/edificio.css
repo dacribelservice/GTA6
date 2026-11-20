@@ -1,7 +1,7 @@
 /* 🏢 EDIFICIO PRINCIPAL — ESTILOS BASE, TESELAS HD Y 3 VISTAS DE COLOR (<= 160 líneas) */
 :root {
   --bg-oceano: #090d16;
-  --panel-bg: rgba(12, 16, 24, 0.88);
+  --panel-bg: rgba(10, 14, 22, 0.95);
   --panel-borde: rgba(255, 42, 133, 0.35);
   --acento-neon: #ff2a85;
   --acento-cyan: #00f0ff;
@@ -12,7 +12,7 @@
 
 html[data-vista="atlas"] {
   --bg-oceano: #2f90b0;
-  --panel-bg: rgba(12, 18, 28, 0.88);
+  --panel-bg: rgba(11, 17, 27, 0.95);
   --panel-borde: rgba(0, 240, 255, 0.35);
   --acento-neon: #ff2a85;
   --acento-cyan: #38bdf8;
@@ -22,7 +22,7 @@ html[data-vista="atlas"] {
 
 html[data-vista="satelite"] {
   --bg-oceano: #1c5266;
-  --panel-bg: rgba(10, 22, 32, 0.9);
+  --panel-bg: rgba(10, 20, 30, 0.95);
   --panel-borde: rgba(16, 185, 129, 0.4);
   --acento-neon: #10b981;
   --acento-cyan: #38bdf8;
@@ -46,6 +46,7 @@ html, body {
 #escenario-mapa {
   width: 100%; height: 100%; cursor: grab;
   touch-action: none; position: relative; overflow: hidden;
+  contain: layout style paint;
 }
 #escenario-mapa.arrastrando { cursor: grabbing; }
 
@@ -88,12 +89,12 @@ html, body {
   position: absolute;
   transform: translate(-50%, -50%) scale(calc(1 / max(1, var(--escala-mapa, 1))));
   padding: 0.32rem 0.78rem; border-radius: 999px;
-  background: rgba(9, 12, 20, 0.78);
+  background: rgba(9, 12, 20, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.28);
   color: #fff; font-size: 0.76rem; font-weight: 800;
   letter-spacing: 0.09em; text-transform: uppercase;
   pointer-events: auto; cursor: pointer;
-  backdrop-filter: blur(4px);
+  contain: layout style paint;
   transition: border-color 0.15s ease, background 0.15s ease;
   white-space: nowrap;
 }
@@ -112,7 +113,7 @@ html, body {
   display: flex; align-items: center; gap: 6px;
   padding: 6px; border-radius: 12px;
   background: var(--panel-bg); border: 1px solid var(--panel-borde);
-  backdrop-filter: blur(10px);
+  contain: layout style paint;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
 }
 
