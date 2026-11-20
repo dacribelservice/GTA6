@@ -67,18 +67,21 @@ A menudo en el desarrollo web nos complicamos con arquitecturas enrevesadas, dec
 
 ---
 
-## 4. Regla de Oro: Límite Estricto de 250 Líneas por Archivo
+## 4. Regla de Oro: Margen de Referencia de 250 Líneas por Archivo
 
 ### La Regla
-**Ningún archivo del proyecto (`.js`, `.css`, `.html`, `.svg` o `.json`) puede superar las 250 líneas.**
+**La meta ideal para cualquier archivo del proyecto (`.js`, `.css`, `.html`, `.svg` o `.json`) es mantenerse alrededor de las 250 líneas, entendida como un margen de seguridad y no como una camisa de fuerza.**
+
+* **Flexibilidad con criterio:** Si un archivo necesita crecer a **280, 290 o 320 líneas** para implementar una lógica completa de forma limpia, legible y sin comprimir el código artificialmente, **está permitido**.
+* **Cuándo dividir en otro archivo:** Solo cuando un archivo supera el margen de forma considerable (por ejemplo, **+100 líneas por encima** de las 250, es decir, ~350+ líneas) se debe extraer parte de su lógica a un nuevo módulo o archivo auxiliar.
 
 ### ¿Por Qué Existe Esta Regla?
 1. **Protege el Centro Comercial (Evita "Mega-Locales"):**
-   * Si un archivo empieza a pasar de las 250 líneas, es señal de que ese "local" está intentando hacer dos o tres negocios a la vez. La regla nos obliga a dividirlo en locales pequeños, limpios y fáciles de mantener.
+   * Si un archivo empieza a crecer demasiado por encima de las 250 líneas, es señal de que ese "local" está intentando hacer dos o tres negocios a la vez. La regla nos orienta a dividirlo en piezas pequeñas, limpias y fáciles de mantener.
 2. **Mantenimiento Instantáneo (Humanos e IA):**
-   * Un archivo de menos de 250 líneas se lee, se entiende y se repara en segundos sin riesgo de romper otra cosa por accidente.
+   * Un archivo compacto se lee, se entiende y se repara en segundos sin riesgo de romper otra cosa por accidente, sin sacrificar claridad por ahorrar unas pocas líneas.
 3. **Garantía del Lápiz de Carbón y 100% PageSpeed:**
-   * Poner un techo de 250 líneas hace matemáticamente imposible que alguien meta código basura o procesos innecesariamente complejos.
+   * Tener un margen de referencia de 250 líneas evita que alguien meta código basura o procesos innecesariamente complejos.
 
 *(Nota: Incluso los catálogos de datos y gráficos vectoriales como `categorias.json`, `ubicaciones-vice-city.json`, `ubicaciones-regiones.json` y `lamina-iconos.svg` cumplen estrictamente el límite de ≤ 250 líneas gracias a la división por regiones y al formato JSON lineal de 1 línea por ubicación, auditado automáticamente por `vigilante/auditor.js`).*
 

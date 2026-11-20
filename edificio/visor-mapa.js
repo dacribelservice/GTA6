@@ -13,8 +13,8 @@ export const REGIONES_LEONIDA = [
 ];
 const estado = { tx: 0, ty: 0, escala: 1, arrastrando: false, inicioX: 0, inicioY: 0, movido: false, vista: localStorage.getItem('gta6_vista_mapa') || 'atlas' };
 let elEscenario, elLienzo, elTeselas, elZoomTxt, elCoordTxt, timerTeselas, timerVista;
-let rectCache = null, rafId = 0, escalaAplicada = -1, ultimaVistaMs = 0;
-const teselasActivas = new Map();
+let rectCache = null, rafId = 0, escalaAplicada = -1, ultimaVistaMs = 0, pellizco = null;
+const teselasActivas = new Map(), punteros = new Map();
 const getRect = () => rectCache || (rectCache = elEscenario.getBoundingClientRect());
 const cancelarRaf = () => { if (rafId) { cancelAnimationFrame(rafId); rafId = 0; } };
 const aPorc = (e, r) => [
@@ -145,22 +145,63 @@ function montarTerrenoYControles() {
   elZoomTxt.addEventListener('click', centrarMapaInicial); cambiarVista(estado.vista);
 }
 
+function iniciarPellizco() {
+  const [p1, p2] = [...punteros.values()];
+  pellizco = {
+    dist: Math.hypot(p2.clientX - p1.clientX, p2.clientY - p1.clientY) || 1,
+    mx: (p1.clientX + p2.clientX) / 2, my: (p1.clientY + p2.clientY) / 2,
+    escala: estado.escala, tx: estado.tx, ty: estado.ty
+  };
+  estado.movido = true;
+}
+
 function registrarEventosInteraccion() {
   elEscenario.addEventListener('pointerdown', (e) => {
     if (e.button !== 0 && e.pointerType === 'mouse') return;
-    estado.arrastrando = true; estado.movido = false;
-    estado.inicioX = e.clientX - estado.tx; estado.inicioY = e.clientY - estado.ty;
-    elEscenario.classList.add('arrastrando'); elEscenario.setPointerCapture(e.pointerId);
+    punteros.set(e.pointerId, { clientX: e.clientX, clientY: e.clientY });
+    try { elEscenario.setPointerCapture(e.pointerId); } catch {}
+    estado.arrastrando = true;
+    elEscenario.classList.add('arrastrando');
+    if (punteros.size === 1) {
+      estado.movido = false; pellizco = null;
+      estado.inicioX = e.clientX - estado.tx; estado.inicioY = e.clientY - estado.ty;
+    } else if (punteros.size === 2) {
+      iniciarPellizco();
+    }
   });
   elEscenario.addEventListener('pointermove', (e) => {
     const [xP, yP] = aPorc(e, getRect());
     if (elCoordTxt) elCoordTxt.textContent = `X: ${Math.min(100, Math.max(0, xP)).toFixed(1)}% · Y: ${Math.min(100, Math.max(0, yP)).toFixed(1)}%`;
-    if (!estado.arrastrando) return;
-    const nx = e.clientX - estado.inicioX, ny = e.clientY - estado.inicioY;
-    if (Math.hypot(nx - estado.tx, ny - estado.ty) > 4) estado.movido = true;
-    estado.tx = nx; estado.ty = ny; programarPintado();
+    if (!punteros.has(e.pointerId)) return;
+    punteros.set(e.pointerId, { clientX: e.clientX, clientY: e.clientY });
+    if (punteros.size >= 2 && pellizco) {
+      const [p1, p2] = [...punteros.values()];
+      const dist = Math.hypot(p2.clientX - p1.clientX, p2.clientY - p1.clientY) || 1;
+      const mx = (p1.clientX + p2.clientX) / 2, my = (p1.clientY + p2.clientY) / 2;
+      const rect = getRect();
+      const nuevaEscala = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, pellizco.escala * (dist / pellizco.dist)));
+      estado.tx = (mx - rect.left) - ((pellizco.mx - rect.left - pellizco.tx) / pellizco.escala) * nuevaEscala;
+      estado.ty = (my - rect.top) - ((pellizco.my - rect.top - pellizco.ty) / pellizco.escala) * nuevaEscala;
+      estado.escala = nuevaEscala;
+      programarPintado();
+    } else if (punteros.size === 1 && estado.arrastrando) {
+      const nx = e.clientX - estado.inicioX, ny = e.clientY - estado.inicioY;
+      if (Math.hypot(nx - estado.tx, ny - estado.ty) > 4) estado.movido = true;
+      estado.tx = nx; estado.ty = ny; programarPintado();
+    }
   });
   const fin = (e) => {
+    if (!punteros.has(e.pointerId)) return;
+    punteros.delete(e.pointerId);
+    if (punteros.size === 1) {
+      pellizco = null; estado.movido = true;
+      const [restante] = punteros.values();
+      estado.inicioX = restante.clientX - estado.tx;
+      estado.inicioY = restante.clientY - estado.ty;
+      return;
+    }
+    if (punteros.size >= 2) { iniciarPellizco(); return; }
+    pellizco = null;
     if (!estado.arrastrando) return;
     estado.arrastrando = false; elEscenario.classList.remove('arrastrando');
     if (!estado.movido && e.type === 'pointerup') {
@@ -170,9 +211,18 @@ function registrarEventosInteraccion() {
       }
     }
   };
-  elEscenario.addEventListener('pointerup', fin); elEscenario.addEventListener('pointercancel', fin);
+  elEscenario.addEventListener('pointerup', fin);
+  elEscenario.addEventListener('pointercancel', fin);
+  elEscenario.addEventListener('lostpointercapture', fin);
   elEscenario.addEventListener('dblclick', (e) => hacerZoomEnPunto(1.85, e.clientX, e.clientY, true));
   elEscenario.addEventListener('wheel', (e) => { e.preventDefault(); hacerZoomEnPunto(e.deltaY < 0 ? 1.18 : 0.85, e.clientX, e.clientY, false); }, { passive: false });
+}
+
+function actualizarViewport() {
+  if (!elEscenario) return;
+  rectCache = elEscenario.getBoundingClientRect();
+  emitirVistaCambiada();
+  actualizarTeselasHD();
 }
 
 export function leerEnlaceCompartido() {
@@ -184,7 +234,7 @@ export function iniciarVisorMapa() {
   elEscenario = document.getElementById('escenario-mapa'); elLienzo = document.getElementById('lienzo-mapa');
   if (!elEscenario || !elLienzo) return;
   montarTerrenoYControles(); registrarEventosInteraccion(); centrarMapaInicial();
-  window.addEventListener('resize', centrarMapaInicial);
+  window.addEventListener('resize', actualizarViewport);
   window.addEventListener('hashchange', leerEnlaceCompartido);
   window.addEventListener('edificio:solicitar-vista', emitirVistaCambiada);
   setTimeout(leerEnlaceCompartido, 120);
