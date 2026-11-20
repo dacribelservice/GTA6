@@ -43,3 +43,46 @@ Este documento registra las tareas técnicas puntuales de optimización y experi
   * Movimiento con 1 dedo, pellizco de 2 dedos, buscador/filtros y `resize` sin reinicio de zoom y con **0 errores** en consola.
 - [x] **2.13** 🛡️ **CONTROL DE CALIDAD (Prueba del Centro Comercial):** Apagar temporalmente `iconosMapa: false` y `menuFiltros: false` por separado en `edificio/central-locales.js` confirmando que el mapa HD sigue funcionando al 100% sin fallos, y volver a encenderlos.
 - [x] **2.14** Subir copia de seguridad a **GitHub** (`git push`) para desplegar en **Vercel** y validar directamente en un iPhone real la nitidez del mapa, los iconos y la visibilidad en modo Atlas.
+
+---
+
+## Fase 3: Integración de Dominio Oficial (`cangel.games`) y Vista Previa en WhatsApp / Redes Sociales (Open Graph)
+*Objetivo: Configurar la previsualización enriquecida al compartir el enlace oficial `https://www.cangel.games` en WhatsApp, Telegram, Facebook y Twitter/X, mostrando la imagen promocional oficial de GTA VI, branding de CANGEL GAMES, título y descripción sin ralentizar la carga ni violar la Regla de Oro (≤ 250 líneas).*
+
+### Bloque A — Configuración de Dominio y DNS en Producción
+- [x] **3.1** Enlazar el dominio personalizado `cangel.games` en Namecheap hacia Vercel mediante registro `A` (`Host: @` -> `76.76.21.21`) con TTL automático.
+- [x] **3.2** Configurar el subdominio `www.cangel.games` en Namecheap mediante registro `CNAME` (`Host: www` -> `cname.vercel-dns.com.`) y establecer la redirección `308` en Vercel.
+- [x] **3.3** Validar propagación DNS global y emisión exitosa del certificado de seguridad SSL/TLS (`HTTPS` emitido por Let's Encrypt para `www.cangel.games` con código de respuesta `200 OK`).
+
+### Bloque B — Preparación y Optimización de la Imagen Open Graph
+- [x] **3.4** Procesar la imagen promocional oficial de GTA VI (`media_1795148090753_8870c004.jpg`) y guardarla en `recursos/og-share.jpg`.
+- [x] **3.5** Ajustar dimensiones exactas a proporción recomendada de `1200 × 630 px` (aspect ratio 1.91:1) y comprimir a un peso menor a 300 KB (requisito estricto del rastreador de WhatsApp para no omitir la miniatura).
+- [x] **3.6** Asegurar compatibilidad cruzada de formato (`image/jpeg`) legible por los bots de WhatsApp, Telegram, Discord, iMessage, Facebook y Twitter/X.
+
+### Bloque C — Implementación de Metadatos en `index.html` (≤ 120 líneas)
+- [x] **3.7** Agregar en el `<head>` de `index.html` las etiquetas estándar de Open Graph con URL absoluta HTTPS:
+  * `<meta property="og:type" content="website">`
+  * `<meta property="og:url" content="https://www.cangel.games/">`
+  * `<meta property="og:site_name" content="CANGEL GAMES">`
+  * `<meta property="og:title" content="GTA 6 - Mapa Interactivo de Leonida | CANGEL GAMES">`
+  * `<meta property="og:description" content="Explora el mapa interactivo de GTA VI en alta definición: 2532 marcadores IGN, 76 categorías, coleccionables y filtros en tiempo real.">`
+  * `<meta property="og:image" content="https://www.cangel.games/recursos/og-share.jpg">`
+  * `<meta property="og:image:secure_url" content="https://www.cangel.games/recursos/og-share.jpg">`
+  * `<meta property="og:image:type" content="image/jpeg">`
+  * `<meta property="og:image:width" content="1200">`
+  * `<meta property="og:image:height" content="630">`
+- [x] **3.8** Incorporar metaetiquetas para Twitter Cards:
+  * `<meta name="twitter:card" content="summary_large_image">`
+  * `<meta name="twitter:title" content="GTA 6 - Mapa Interactivo de Leonida | CANGEL GAMES">`
+  * `<meta name="twitter:description" content="Mapa interactivo de GTA VI en Leonida con marcadores y coleccionables en alta definición.">`
+  * `<meta name="twitter:image" content="https://www.cangel.games/recursos/og-share.jpg">`
+- [x] **3.9** Definir `<meta name="theme-color" content="#ff2a85">` para tintar la barra de estado del navegador móvil con el color neón característico de Vice City.
+
+### Bloque D — Control de Calidad, Despliegue y Validación
+- [x] **3.10** 🛡️ **CONTROL DE CALIDAD (Vigilante):** Ejecutar `node vigilante/auditor.js` y confirmar que `index.html` permanece dentro del límite (≤ 120 líneas) y todo el proyecto arroja **0 errores**.
+- [x] **3.11** 🛡️ **CONTROL DE CALIDAD (Depuradores de Redes Sociales):**
+  * Subir copia de seguridad a **GitHub** (`git push`) para despliegue automático en **Vercel**.
+  * Inspeccionar la URL `https://www.cangel.games` con herramientas de depuración OG (Facebook Sharing Debugger / OpenGraph.xyz) verificando que el scraper obtiene respuesta 200 y detecta título, imagen y dimensiones.
+- [x] **3.12** 🛡️ **CONTROL DE CALIDAD (Prueba Real en WhatsApp):**
+  * Pegar el enlace `https://www.cangel.games` en una conversación de WhatsApp (móvil y web).
+  * Confirmar que aparece la tarjeta interactiva con la imagen de GTA VI, título y descripción sin demoras ni errores de carga.
