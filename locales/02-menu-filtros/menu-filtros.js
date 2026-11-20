@@ -173,7 +173,7 @@ function renderizarPanel() {
   raiz.innerHTML = `<div class="mf-fondo" id="mf-fondo"></div>
     <button type="button" class="mf-fab" id="mf-btn-abrir" aria-expanded="${estado.abierto}" aria-controls="mf-panel"><span>☰ Filtros</span><span class="mf-fab-num" id="mf-fab-num">0</span></button>
     <div class="mf-panel" id="mf-panel" role="region" aria-label="Filtros y buscador de ubicaciones">
-      <div class="mf-cabecera"><span class="mf-marca">Leonida · IGN</span><span class="mf-contador" id="mf-contador">0 / 0</span><button type="button" class="mf-cerrar" id="mf-btn-cerrar" title="Ocultar filtros">✕</button></div>
+      <div class="mf-cabecera"><span class="mf-marca">CANGEL GAMES</span><span class="mf-contador" id="mf-contador">0 / 0</span><button type="button" class="mf-cerrar" id="mf-btn-cerrar" title="Ocultar filtros">✕</button></div>
       <div class="mf-buscador"><div class="mf-input-wrap"><input type="search" class="mf-input" id="mf-input-busqueda" placeholder="Buscar lugar, categoría o zona..." autocomplete="off"><button type="button" class="mf-limpiar" id="mf-btn-limpiar" hidden aria-label="Limpiar búsqueda">✕</button></div><div class="mf-resultados" id="mf-resultados" hidden></div></div>
       <div class="mf-controles"><select class="mf-select" id="mf-select-region" aria-label="Filtrar por región">${opcionesReg}</select><div class="mf-acciones"><button type="button" class="mf-btn-accion" id="mf-btn-todo">Mostrar todo</button><button type="button" class="mf-btn-accion" id="mf-btn-nada">Ocultar todo</button></div></div>
       <div class="mf-lista" id="mf-lista">${gruposHtml}</div>

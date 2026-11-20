@@ -118,7 +118,14 @@ html, body {
   background: rgba(255, 255, 255, 0.06); color: var(--texto-base);
   padding: 7px 11px; border-radius: 8px;
   font-size: 0.78rem; font-weight: 700; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  line-height: 1;
   transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+.btn-edificio .btn-icono {
+  width: 14px; height: 14px;
+  display: block; flex-shrink: 0;
+  stroke: currentColor;
 }
 .btn-edificio:hover { border-color: var(--acento-cyan); background: rgba(0, 240, 255, 0.14); }
 .btn-edificio:active { transform: scale(0.96); }
@@ -135,5 +142,6 @@ html, body {
 
 @media (max-width: 640px) {
   #controles-edificio { right: 10px; bottom: 10px; }
-  .btn-edificio { padding: 6px 8px; font-size: 0.72rem; }
+  .btn-edificio { padding: 6px 8px; font-size: 0.72rem; gap: 4px; }
+  .btn-edificio .btn-icono { width: 12px; height: 12px; }
 }

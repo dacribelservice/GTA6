@@ -234,7 +234,17 @@ function montarTerrenoYControles() {
     contRegiones.appendChild(btn); etiquetasRegiones.push({ reg, btn });
   });
   const nav = document.getElementById('controles-edificio');
-  nav.innerHTML = `<div class="barra-edificio" role="group" aria-label="Cambiar vista de color"><button type="button" class="btn-edificio" data-btn-vista="radar">🌙 Radar</button><button type="button" class="btn-edificio" data-btn-vista="atlas">🗺️ Atlas</button><button type="button" class="btn-edificio" data-btn-vista="satelite">🛰️ Satélite</button></div><div class="barra-edificio" role="group" aria-label="Zoom HD y coordenadas"><span class="lectura-edificio" id="lectura-coords">X: 50.0% · Y: 50.0%</span><button type="button" class="btn-edificio" id="btn-zoom-out" title="Alejar">➖</button><button type="button" class="btn-edificio" id="btn-zoom-reset" title="Centrar mapa">100%</button><button type="button" class="btn-edificio" id="btn-zoom-in" title="Acercar">➕</button></div>`;
+  nav.innerHTML = `<div class="barra-edificio" role="group" aria-label="Cambiar vista de color">` +
+    `<button type="button" class="btn-edificio" data-btn-vista="radar"><svg class="btn-icono" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="m12 12 5-5"/></svg><span>Radar</span></button>` +
+    `<button type="button" class="btn-edificio" data-btn-vista="atlas"><svg class="btn-icono" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg><span>Atlas</span></button>` +
+    `<button type="button" class="btn-edificio" data-btn-vista="satelite"><svg class="btn-icono" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 7 9 3 5 7l4 4"/><path d="m17 11 4 4-4 4-4-4"/><path d="m8 12 4 4 6-6-4-4Z"/><path d="m16 8 3-3"/><path d="M9 21a6 6 0 0 0-6-6"/></svg><span>Satélite</span></button>` +
+  `</div>` +
+  `<div class="barra-edificio" role="group" aria-label="Zoom HD y coordenadas">` +
+    `<span class="lectura-edificio" id="lectura-coords">X: 50.0% · Y: 50.0%</span>` +
+    `<button type="button" class="btn-edificio" id="btn-zoom-out" title="Alejar" aria-label="Alejar"><svg class="btn-icono" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>` +
+    `<button type="button" class="btn-edificio" id="btn-zoom-reset" title="Centrar mapa">100%</button>` +
+    `<button type="button" class="btn-edificio" id="btn-zoom-in" title="Acercar" aria-label="Acercar"><svg class="btn-icono" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>` +
+  `</div>`;
   elZoomTxt = document.getElementById('btn-zoom-reset'); elCoordTxt = document.getElementById('lectura-coords');
   nav.querySelectorAll('[data-btn-vista]').forEach((b) => b.addEventListener('click', () => cambiarVista(b.dataset.btnVista)));
   document.getElementById('btn-zoom-in').addEventListener('click', () => hacerZoomEnPunto(1.4, window.innerWidth / 2, window.innerHeight / 2, true));
