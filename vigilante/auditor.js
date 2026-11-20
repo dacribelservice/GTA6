@@ -87,7 +87,7 @@ function iniciarServidor() {
       return res.end('404 - Recurso no encontrado');
     }
     const ext = path.extname(destino).toLowerCase();
-    res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream' });
+    res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream', 'Cache-Control': 'no-store' });
     fs.createReadStream(destino).pipe(res);
   };
   http.createServer(handler).listen(5000, () => {
