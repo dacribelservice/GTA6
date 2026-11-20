@@ -1,6 +1,8 @@
 /* 📍 LOCAL #1: ICONOS DEL MAPA — ESTILOS AISLADOS (<= 140 líneas) */
 .marcador-mapa {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 28px;
   height: 28px;
   padding: 0;
@@ -14,8 +16,8 @@
   pointer-events: auto;
   cursor: pointer;
   z-index: 10;
-  --factor-pin: clamp(0.05, calc(0.95 / var(--escala-mapa, 1)), 1.3);
-  transform: translate(-50%, -50%) scale(var(--factor-pin));
+  --pin-escala: 1;
+  transform: translate3d(var(--px, -999px), var(--py, -999px), 0) translate(-50%, -50%) scale(calc(var(--pin-zoom, 1) * var(--pin-escala)));
   transform-origin: center center;
   contain: layout style;
   transition: background-color 0.12s ease, color 0.12s ease;
@@ -32,7 +34,7 @@
 .marcador-mapa:focus-visible,
 .marcador-mapa.seleccionado {
   z-index: 35;
-  transform: translate(-50%, -50%) scale(calc(var(--factor-pin) * 1.24));
+  --pin-escala: 1.24;
   background: var(--color-icono, #00f0ff);
   color: #090b10;
   box-shadow: 0 0 14px var(--color-icono, #00f0ff);

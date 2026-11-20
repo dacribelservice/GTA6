@@ -12,8 +12,8 @@ const RUTAS_DATOS = {
 };
 const mapaCategorias = new Map(), mapaUbicaciones = new Map(), nodosCache = new Map(), montados = new Set();
 const filtro = { cats: null, q: '', reg: 'todas' };
-const vista = { xMin: 0, xMax: 100, yMin: 0, yMax: 100 };
-let ubicaciones = [], capaIconos = null, idSeleccionado = null, eventosRegistrados = false, completados = new Set();
+const vista = { xMin: 0, xMax: 100, yMin: 0, yMax: 100, tx: 0, ty: 0, escala: 1, tamanoBase: 1536 };
+let ubicaciones = [], capaIconos = null, idSeleccionado = null, eventosRegistrados = false, completados = new Set(), pinZoomAplicado = '';
 
 async function cargarRecurso(url, tipo = 'json') {
   const res = await fetch(url);
@@ -39,12 +39,17 @@ function crearBotonMarcador(u) {
   const cat = mapaCategorias.get(u.categoria) || { nombre: u.categoria, icono: 'icono-pin-personal', color: '#00f0ff' };
   const btn = document.createElement('button');
   btn.type = 'button'; btn.className = 'marcador-mapa';
-  btn.style.left = `${u.x}%`; btn.style.top = `${u.y}%`;
   btn.style.setProperty('--color-icono', cat.color);
   Object.assign(btn.dataset, { id: u.id, categoria: u.categoria, region: u.region, titulo: u.titulo });
   btn.setAttribute('aria-label', `${u.titulo} — ${cat.nombre} (${u.region})`);
   btn.innerHTML = `<svg class="marcador-svg" viewBox="0 0 24 24" aria-hidden="true"><use href="#${cat.icono}"></use></svg>`;
   return btn;
+}
+
+function posicionarBoton(btn, u, base) {
+  const px = vista.tx + (u.x / 100) * base, py = vista.ty + (u.y / 100) * base;
+  btn.style.setProperty('--px', `${px.toFixed(1)}px`);
+  btn.style.setProperty('--py', `${py.toFixed(1)}px`);
 }
 
 const enVentana = (u) => u.x >= vista.xMin && u.x <= vista.xMax && u.y >= vista.yMin && u.y <= vista.yMax;
@@ -66,12 +71,19 @@ function obtenerBoton(u) {
 
 function sincronizarVisibles() {
   if (!capaIconos) return;
+  const pinZoom = vista.escala < 0.75 ? Math.max(0.65, vista.escala / 0.75).toFixed(3) : '1';
+  if (pinZoom !== pinZoomAplicado) {
+    pinZoomAplicado = pinZoom;
+    capaIconos.style.setProperty('--pin-zoom', pinZoom);
+  }
+  const base = vista.tamanoBase * vista.escala;
   const visiblesAhora = new Set(), fragmento = document.createDocumentFragment();
   for (const u of ubicaciones) {
     if (!cumpleFiltro(u) || (!enVentana(u) && u.id !== idSeleccionado)) continue;
     visiblesAhora.add(u.id);
-    if (montados.has(u.id)) continue;
     const btn = obtenerBoton(u);
+    posicionarBoton(btn, u, base);
+    if (montados.has(u.id)) continue;
     btn.classList.toggle('completado', completados.has(u.id));
     btn.classList.toggle('seleccionado', u.id === idSeleccionado);
     fragmento.appendChild(btn); montados.add(u.id);
@@ -99,6 +111,7 @@ function seleccionarMarcador(id, contexto, enfocar = false) {
     contexto.enfocarCoordenada(ubicacion.x, ubicacion.y, 4.5, true);
   }
   const btn = obtenerBoton(ubicacion);
+  posicionarBoton(btn, ubicacion, vista.tamanoBase * vista.escala);
   if (!montados.has(id) && capaIconos) {
     btn.classList.toggle('completado', completados.has(id));
     capaIconos.appendChild(btn); montados.add(id);
@@ -149,6 +162,10 @@ export async function iniciarIconosMapa(contexto) {
     contexto.escuchar('edificio:vista-cambiada', (v) => {
       if (!v) return;
       vista.xMin = v.xMin; vista.xMax = v.xMax; vista.yMin = v.yMin; vista.yMax = v.yMax;
+      if (typeof v.tx === 'number') vista.tx = v.tx;
+      if (typeof v.ty === 'number') vista.ty = v.ty;
+      if (typeof v.escala === 'number') vista.escala = v.escala;
+      if (typeof v.tamanoBase === 'number') vista.tamanoBase = v.tamanoBase;
       sincronizarVisibles();
     });
     contexto.escuchar('filtros:cambiar', aplicarFiltros);

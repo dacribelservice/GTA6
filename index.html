@@ -24,10 +24,12 @@
     <div id="escenario-mapa">
       <div id="lienzo-mapa">
         <div id="capa-terreno"></div>
-        <!-- Capas reservadas para Local #1 (Iconos) y Local #5 (Pines Personales) -->
-        <div id="capa-iconos" aria-live="polite"></div>
-        <div id="capa-pines" aria-live="polite"></div>
       </div>
+      <!-- Capas en escala nativa 1:1 de pantalla (fuera del scale() de #lienzo-mapa) -->
+      <div id="capa-regiones-etiquetas"></div>
+      <!-- Capas reservadas para Local #1 (Iconos) y Local #5 (Pines Personales) -->
+      <div id="capa-iconos" aria-live="polite"></div>
+      <div id="capa-pines" aria-live="polite"></div>
     </div>
 
     <!-- Controles del Edificio (Zoom y Vistas: Radar / Atlas / Satélite) -->

@@ -1,7 +1,7 @@
 /**
  * 👮 VIGILANTE DE CALIDAD (auditor.js)
- * Verifica la Regla de Oro (<= 250 líneas por archivo), valida sintaxis (.js, .json, .css, .html, .svg)
- * y ofrece servidor local sin dependencias en el puerto 5000 con la bandera --serve.
+ * Verifica el margen de referencia (250 líneas, tope flexible 350 según conceptos.md),
+ * valida sintaxis (.js, .json, .css, .html, .svg) y sirve el puerto 5000 con --serve.
  */
 const fs = require('fs');
 const path = require('path');
@@ -9,7 +9,8 @@ const http = require('http');
 const { execFileSync } = require('child_process');
 
 const RAIZ = path.resolve(__dirname, '..');
-const LIMITE_LINEAS = 250;
+const LIMITE_REF = 250;
+const LIMITE_MAX = 350;
 const IGNORAR = new Set(['.git', 'node_modules', '.vercel']);
 const EXT_AUDITABLES = new Set(['.html', '.css', '.js', '.json', '.svg', '.md', '']);
 const MIME = {
@@ -43,7 +44,7 @@ function validarSintaxis(ruta, ext, contenido) {
 }
 
 function auditar() {
-  console.log('\n🛡️  INICIANDO AUDITORÍA DEL VIGILANTE (Regla de Oro <= 250 líneas)\n');
+  console.log(`\n🛡️  INICIANDO AUDITORÍA DEL VIGILANTE (Referencia <= ${LIMITE_REF}, Tope flexible <= ${LIMITE_MAX} líneas)\n`);
   const archivos = escanear(RAIZ);
   let errores = 0;
 
@@ -56,9 +57,11 @@ function auditar() {
     const lineas = contenido.split(/\r?\n/).length;
     let estado = '✅ OK';
 
-    if (lineas > LIMITE_LINEAS) {
-      estado = `❌ EXCEDE LÍMITE (${lineas}/${LIMITE_LINEAS})`;
+    if (lineas > LIMITE_MAX) {
+      estado = `❌ EXCEDE MÁX (${lineas}/${LIMITE_MAX})`;
       errores++;
+    } else if (lineas > LIMITE_REF) {
+      estado = `⚠️ MARGEN (${lineas}/${LIMITE_MAX})`;
     }
     try {
       validarSintaxis(ruta, ext, contenido);
@@ -66,7 +69,7 @@ function auditar() {
       estado = `❌ ERROR SINTAXIS: ${err.message}`;
       errores++;
     }
-    console.log(`  ${estado.padEnd(28)} | ${String(lineas).padStart(3)} / 250 líneas | ${rel}`);
+    console.log(`  ${estado.padEnd(28)} | ${String(lineas).padStart(3)} / ${LIMITE_REF} líneas | ${rel}`);
   }
 
   console.log('\n----------------------------------------------------------------------');
