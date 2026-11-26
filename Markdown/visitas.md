@@ -1,6 +1,6 @@
 # Plan de Escalabilidad y Alta Concurrencia (Miles a Millones de Visitas)
 
-Este documento analiza la capacidad real de `www.cangel.games` para resistir picos virales de miles o millones de visitas, identifica los cuellos de botella concretos del proyecto actual y define cómo blindar los cimientos respetando estrictamente los **4 pilares fundamentales de `Markdown/fundamentos/conceptos.md`**:
+Este documento analiza la capacidad real de `www.cangel.games` para resistir picos virales de miles o millones de visitas, identifica los cuellos de botella concretos del proyecto actual y define cómo blindar los cimientos respetando estrictamente los **Fundamentos Cangel** (`.agents/skills/fundamentos-cangel/SKILL.md`):
 1. **Arquitectura Modular y Aislada (Centro Comercial / LEGO):** Si en un pico masivo falla el chat o la IA, el mapa principal sigue funcionando al 100%.
 2. **Velocidad Extrema (100/100 en Google PageSpeed):** Caché inteligente, carga bajo demanda (*Lazy Loading*) y cero peso muerto.
 3. **Filosofía del Lápiz de Carbón:** Escalar por etapas sin sobre-ingeniería ni gastar dinero antes de que el tráfico lo exija.
@@ -30,12 +30,12 @@ No obstante, existen **4 cuellos de botella concretos** que conviene blindar des
   1. Colocar **Cloudflare (plan gratuito)** delante de `www.cangel.games` para obtener caché CDN global, firewall y protección **anti-DDoS** gratuita — o migrar el alojamiento estático a **Cloudflare Pages** (ancho de banda **ilimitado gratuito** para activos estáticos).
   2. Optimizar las cabeceras en `vercel.json` hacia `public, max-age=3600, stale-while-revalidate=86400` (o versionado `?v=` con `immutable`), reduciendo hasta un **80%** el consumo de transferencia en visitas recurrentes.
 
-### 3. 🚨 Concurrencia del Chat en Vivo (`Local #7` / Supabase Realtime)
+### 3. 🚨 Concurrencia del Chat Radio Leonida (Supabase Realtime)
 * **Situación actual / planificada:** El mapa estático soporta millones de visitas casi gratis, pero las conexiones WebSocket en tiempo real son el componente más sensible a picos simultáneos (Supabase Free: **200 conexiones Realtime simultáneas**; Supabase Pro \$25/mes: **500+** escalables).
 * **Cimientos obligatorios desde el día 1:**
   1. **Lazy Loading estricto:** Abrir WebSocket únicamente cuando el usuario hace clic en abrir el chat (si hay 50.000 personas en el mapa y el 3% abre el chat, solo se consumen 1.500 conexiones).
   2. **Auto-pausa por inactividad:** Desconectar automáticamente el WebSocket tras ~3 minutos sin actividad en el chat, mostrando un botón ligero *"Reconectar"* (multiplica ~3× la capacidad real).
-  3. **Degradación elegante (Cortacircuitos):** Si Realtime alcanza su techo en un pico extremo, el chat no se rompe ni afecta el mapa; pasa automáticamente a modo lectura por consulta periódica (cada 15s) o se aísla el Local #7.
+  3. **Degradación elegante (Cortacircuitos):** Si Realtime alcanza su techo en un pico extremo, el chat no se rompe ni afecta el mapa; pasa automáticamente a modo lectura por consulta periódica (cada 15s) o se aísla el módulo de **Chat Radio Leonida**.
   4. **Índices SQL optimizados:** Crear desde el arranque índice compuesto `(canal, created_at DESC)` en `chat_mensajes` e índice en `user_id` para mantener consultas por debajo de 2 ms.
 
 ### 4. 🚨 Defensa Contra Bots y Tope de Costo en la IA Moderadora

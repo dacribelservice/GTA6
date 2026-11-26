@@ -2,8 +2,8 @@
 
 Este documento integra en **3 etapas prácticas de ejecución** los tres frentes del producto (**Comunidad**, **Modelo de Negocio** y **Software / Escalabilidad**) aprovechando el momento real actual (**GTA 6 recién lanzado hace 4 días — plena fiebre mundial**).
 
-Conecta directamente lo definido en `Markdown/vision.md`, `Markdown/visitas.md`, `Markdown/chat/chat.md` y `Markdown/chat/moderador.md`, cumpliendo estrictamente los **4 pilares innegociables de `Markdown/fundamentos/conceptos.md`**:
-1. **Arquitectura Modular (Centro Comercial / LEGO):** Cada local (incluido el **Local #7: Chat "Radio Leonida"**) corre aislado en `edificio/central-locales.js`; si falla el chat o la IA, el mapa sigue operando al 100%.
+Conecta directamente lo definido en `Markdown/vision.md`, `Markdown/visitas.md`, `Markdown/chat/chat.md` y `Markdown/chat/moderador.md`, cumpliendo estrictamente los **Fundamentos Cangel** (`.agents/skills/fundamentos-cangel/SKILL.md`):
+1. **Arquitectura Modular (LEGO):** Cada función (incluido **Chat Radio Leonida**) corre aislada en `edificio/central-locales.js`; si falla el chat o la IA, el mapa sigue operando al 100%.
 2. **Velocidad Extrema (100/100 Google PageSpeed):** Carga bajo demanda (*Lazy Loading*) para el chat, videos y widgets; caché CDN optimizada y cero peso muerto en la apertura inicial.
 3. **Filosofía del Lápiz de Carbón:** Lanzar primero lo esencial que genera comunidad y ventas hoy, sin sobre-ingeniería ni gastos prematuros.
 4. **Regla de Oro (~250 líneas por archivo):** Todo módulo nuevo nace compacto y auditado por `vigilante/auditor.js`.
@@ -14,7 +14,7 @@ Conecta directamente lo definido en `Markdown/vision.md`, `Markdown/visitas.md`,
 *Momento actual (Semana 1 de GTA 6 · 0 – 50.000 visitas/mes · Costo: **\$0 / mes**)*
 *Objetivo: Sacar el chat en vivo esta misma semana para capturar la ola del lanzamiento real de GTA 6, convertir tráfico de `@cangelgames` hacia `cangelgames.store` y proteger el mapa contra picos iniciales.*
 
-### A. Comunidad — Local #7 ("Radio Leonida" MVP)
+### A. Comunidad — Chat Radio Leonida (MVP)
 - [ ] **Estructura aislada LEGO:** Crear `locales/07-chat-vivo/` con archivos limpios (~250 líneas c/u) conectado mediante `chatVivo: true` en `edificio/central-locales.js` y contenedor propio en `index.html`.
 - [ ] **Lazy Loading estricto (100/100 PageSpeed):** Al abrir la web solo se pinta el botón flotante (~2 KB) **sin conectarse a Supabase ni abrir WebSocket**. El SDK, los mensajes y el contador `🟢 en vivo` cargan únicamente cuando el usuario abre el chat, con **auto-pausa tras 3 minutos de inactividad** (`Markdown/visitas.md`).
 - [ ] **Arranque concentrado (Cero salas vacías):** Iniciar con **2 canales activos** (`🌴 General` y `⚠️ Spoilers`) para concentrar la conversación en el día 1.
@@ -36,7 +36,7 @@ Conecta directamente lo definido en `Markdown/vision.md`, `Markdown/visitas.md`,
 ### D. Control de Calidad de Etapa 1
 - [ ] Ejecutar `node vigilante/auditor.js` (0 errores, Regla de Oro ~250 líneas).
 - [ ] Verificar **100/100 en Google PageSpeed** (móvil y escritorio) con el botón flotante activo.
-- [ ] Probar apagado/fallo simulado del Local #7 confirmando que el mapa sigue funcionando al 100%.
+- [ ] Probar apagado/fallo simulado de **Chat Radio Leonida** confirmando que el mapa sigue funcionando al 100%.
 
 ---
 
@@ -71,7 +71,7 @@ Conecta directamente lo definido en `Markdown/vision.md`, `Markdown/visitas.md`,
 
 ### B. Escalabilidad Extrema (`Markdown/visitas.md` — Etapa 3)
 - [ ] **Cortacircuitos de alta concurrencia:** Si Realtime alcanza su techo en un pico extremo, degradar el chat a modo lectura cada 15s sin afectar jamás al mapa.
-- [ ] **Transporte WebSocket a escala masiva:** Escalar Realtime en Supabase o migrar el canal en vivo del Local #7 a **Cloudflare Durable Objects**, manteniendo el mapa principal y sus marcadores prácticamente a costo \$0.
+- [ ] **Transporte WebSocket a escala masiva:** Escalar Realtime en Supabase o migrar el canal en vivo de **Chat Radio Leonida** a **Cloudflare Durable Objects**, manteniendo el mapa principal y sus marcadores prácticamente a costo \$0.
 
 ---
 
@@ -79,6 +79,6 @@ Conecta directamente lo definido en `Markdown/vision.md`, `Markdown/visitas.md`,
 
 | Etapa | Comunidad (Propuesta de Valor) | Negocio (`cangelgames.store`) | Software y Escalabilidad (`visitas.md`) |
 | :--- | :--- | :--- | :--- |
-| **Etapa 1** *(Hoy · \$0)* | Chat 24h MVP (2 canales), Invitado/Google, `❤️` Rangos, `📍` mapa | Banner fijado, WhatsApp oficial, captura de base opt-in y 1er sorteo | Local #7 aislado, Lazy Loading, auto-pausa 3m, Escudo \$0, Cloudflare CDN + caché |
+| **Etapa 1** *(Hoy · \$0)* | Chat 24h MVP (2 canales), Invitado/Google, `❤️` Rangos, `📍` mapa | Banner fijado, WhatsApp oficial, captura de base opt-in y 1er sorteo | **Chat Radio Leonida** aislado, Lazy Loading, auto-pausa 3m, Escudo \$0, Cloudflare CDN + caché |
 | **Etapa 2** *(Despegue)* | Sesiones elásticas (50–80), +canales/idiomas, Moderador IA 3 strikes | Preventa 24/7 con `@cangel` + monetización internacional (afiliados) | Teselas propias en Cloudflare R2, Cloudflare Pages, Turnstile, Supabase Pro |
 | **Etapa 3** *(Viral +1M)* | Reportes comunitarios, videos 80/20 bajo demanda, nube opcional | Sorteos por rango y fidelización continua hacia tienda y redes | Cortacircuitos lectura 15s y escalado WebSocket (Durable Objects) |

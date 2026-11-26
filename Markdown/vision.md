@@ -1,7 +1,7 @@
 # Visión Estratégica y Propósito Real — CANGEL GAMES (`cangel.games`)
 
-Este documento establece el **contexto de negocio, propósito real y estrategia de crecimiento y monetización** de la web del Mapa Interactivo de GTA 6. Toda iniciativa comercial, de comunidad o de contenido descrita aquí se construye estrictamente sobre los **4 pilares fundamentales de `Markdown/fundamentos/conceptos.md`**:
-1. **Arquitectura Modular y Aislada (Centro Comercial / LEGO):** Cada pieza nueva (chat, videos, banners o módulos de tienda) se conecta como un local independiente sin poner en riesgo el mapa principal.
+Este documento establece el **contexto de negocio, propósito real y estrategia de crecimiento y monetización** de la web del Mapa Interactivo de GTA 6. Toda iniciativa comercial, de comunidad o de contenido descrita aquí se construye estrictamente sobre los **Fundamentos Cangel** (`.agents/skills/fundamentos-cangel/SKILL.md`):
+1. **Arquitectura Modular y Aislada (LEGO):** Cada pieza nueva (Chat Radio Leonida, videos, banners o módulos de tienda) se conecta como un módulo independiente sin poner en riesgo el mapa principal.
 2. **Velocidad Extrema (100/100 en Google PageSpeed):** Carga bajo demanda (*Lazy Loading*) para videos, chat y widgets; cero peso muerto en la apertura inicial.
 3. **Filosofía del Lápiz de Carbón:** Soluciones nativas, directas y prácticas que priorizan la experiencia del jugador sobre la sobre-ingeniería.
 4. **Regla de Oro (~250 líneas por archivo):** Código limpio, compacto y fácil de mantener auditado por `vigilante/auditor.js`.
@@ -50,7 +50,7 @@ Convertir el mapa interactivo de GTA 6 en el **epicentro hispanohablante de expl
 * **Palancas clave:**
   * Mapa ultrarrápido y limpio (100/100 PageSpeed, sin obligar a registrarse para explorar).
   * Enlaces directos a puntos (`#punto=id`) optimizados con vista previa enriquecida para WhatsApp y redes sociales (`recursos/og-share.jpg`).
-  * **Chat en vivo efímero de 24 horas** (`Local #7`, ver `Markdown/chat/chat.md`) para que los jugadores se ayuden en tiempo real.
+  * **Chat Radio Leonida (efímero de 24 horas)** (ver `Markdown/chat/chat.md`) para que los jugadores se ayuden en tiempo real.
   * **Arranque con tracción real:** La comunidad existente de `@cangelgames` alimenta el tráfico inicial desde el día 1, evitando el problema de comunidad vacía.
 
 ### Pilar 2: Ecosistema de Contenido (TikTok, YouTube e Instagram ↔ Mapa)

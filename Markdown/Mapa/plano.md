@@ -11,8 +11,8 @@ Para evitar sobre-ingeniería, dependencias pesadas que se rompen con el tiempo 
 ### A. Código Base (Cero Librerías Pesadas)
 1. **HTML5 Puro (`index.html`):**
    * Estructura limpia y directa que carga en el primer milisegundo.
-2. **CSS3 Modular Aislado (`.css` por cada local):**
-   * Cada local tiene su propia hoja de diseño. Los estilos de un local no se mezclan ni rompen el diseño de otro.
+2. **CSS3 Modular Aislado (`.css` por cada módulo):**
+   * Cada módulo tiene su propia hoja de diseño. Los estilos de un módulo no se mezclan ni rompen el diseño de otro.
    * Uso de aceleración por tarjeta gráfica (`transform: translate3d`, `will-change`) para que el movimiento del mapa vaya a 60 cuadros por segundo en cualquier teléfono o PC.
 3. **JavaScript Nativo Modular (`ES Modules`):**
    * Usamos el sistema oficial de módulos de los navegadores modernos (`import` / `export`).
@@ -31,7 +31,7 @@ Para evitar sobre-ingeniería, dependencias pesadas que se rompen con el tiempo 
 
 ### C. Infraestructura: GitHub + Vercel
 1. **GitHub (Bóveda de Código y Control de Versiones):**
-   * Guarda todo el proyecto ordenado. Cada local nuevo que construyamos queda respaldado paso a paso.
+   * Guarda todo el proyecto ordenado. Cada módulo nuevo que construyamos queda respaldado paso a paso.
 2. **Vercel (Servidor Mundial Ultra Rápido):**
    * Conectado directamente a nuestro repositorio de GitHub.
    * Cada vez que subimos un cambio a GitHub (`git push`), Vercel actualiza la web pública en **2 segundos**.
@@ -39,96 +39,101 @@ Para evitar sobre-ingeniería, dependencias pesadas que se rompen con el tiempo 
 
 ---
 
-## 2. El Plano Completo de Carpetas (El Centro Comercial)
+## 2. El Plano Completo de Carpetas (Arquitectura Modular)
 
-Cada carpeta tiene una responsabilidad única. El **Edificio** sostiene la estructura y cada **Local** tiene su propia "energía eléctrica" (`.js`) y su propia "agua" (`.css`):
+Cada carpeta tiene una responsabilidad única. El **Motor Principal del Mapa** (`edificio/`) sostiene la estructura y cada **módulo independiente** dentro de `locales/` tiene su propia lógica (`.js`) y estilos (`.css`):
 
 ```text
 GTA6/
 │
-├── index.html                   # 🚪 Puerta principal: carga el edificio y abre los locales activos
+├── index.html                   # 🚪 Puerta principal: carga el motor del mapa y los módulos activos
 ├── vercel.json                  # ⚡ Configuración de caché y velocidad máxima para Vercel
 ├── manifest.json                # 📱 Permite instalar el mapa como App en la pantalla del celular
 ├── .gitignore                   # 🛡️ Evita subir archivos basura o temporales a GitHub
+├── AGENTS.md                    # 📜 Regla de Oro y normas del proyecto
+├── .agents/skills/fundamentos-cangel/SKILL.md # 🧠 Fundamentos Cangel
 │
-├── vigilante/                   # 👮 EL VIGILANTE DE CALIDAD (Regla de Oro ≤ 250 líneas)
-│   └── auditor.js               # Escanea todos los archivos y verifica ≤ 250 líneas y 0 errores
+├── vigilante/                   # 👮 EL VIGILANTE DE CALIDAD (Techo duro ≤ 350 líneas)
+│   └── auditor.js               # Escanea todos los archivos y verifica límites y 0 errores
 │
-├── edificio/                    # 🏢 EL EDIFICIO PRINCIPAL (Siempre encendido)
+├── edificio/                    # 🏢 MOTOR PRINCIPAL DEL MAPA (Siempre encendido)
 │   ├── edificio.css             # Estilos de la estructura base y pantalla completa
 │   ├── visor-mapa.js            # Motor de movimiento (arrastrar), zoom, vistas y #punto=
-│   └── central-locales.js       # Tablero eléctrico: conecta, enciende o apaga cada local
+│   └── central-locales.js       # Tablero de interruptores: conecta, enciende o apaga cada módulo
 │
-├── locales/                     # 🏪 LOS 6 LOCALES INDEPENDIENTES (Módulos tipo LEGO)
+├── locales/                     # 🧩 MÓDULOS INDEPENDIENTES (Arquitectura LEGO)
 │   │
-│   ├── 01-iconos-mapa/          # Local 1: Dibuja los iconos encima del mapa
+│   ├── 01-iconos-mapa/          # Iconos del Mapa: dibuja los marcadores sobre el mapa
 │   │   ├── iconos-mapa.js       # Lógica para colocar cada icono en su coordenada (X%, Y%)
 │   │   └── iconos-mapa.css      # Diseño, colores y tamaño de los iconos en el mapa
 │   │
-│   ├── 02-menu-filtros/         # Local 2: Panel lateral estilo IGN y buscador
+│   ├── 02-menu-filtros/         # Menú de Filtros y Buscador: panel lateral estilo IGN
 │   │   ├── menu-filtros.js      # Lógica para filtrar categorías y buscar lugares por texto
 │   │   └── menu-filtros.css     # Diseño del menú desplegable en PC y móvil
 │   │
-│   ├── 03-tarjeta-info/         # Local 3: Ventana emergente al tocar un icono
+│   ├── 03-tarjeta-info/         # Tarjeta de Información: ventana emergente al tocar un icono
 │   │   ├── tarjeta-info.js      # Muestra foto bajo demanda, pista y botón "Copiar enlace directo"
 │   │   └── tarjeta-info.css     # Diseño de la tarjeta informativa
 │   │
-│   ├── 04-progreso-jugador/     # Local 4: Sistema para tachar coleccionables completados ✅
-│   │   ├── progreso-jugador.js  # Guarda en localStorage + Exportar/Importar progreso entre dispositivos
+│   ├── 04-progreso-jugador/     # Progreso del Jugador: tachar coleccionables completados ✅
+│   │   ├── progreso-jugador.js  # Guarda en localStorage + Exportar/Importar progreso
 │   │   └── progreso-jugador.css # Estilo visual de los iconos completados y barra de progreso
 │   │
-│   ├── 05-pines-personales/     # Local 5: Marcadores y notas privadas del jugador
+│   ├── 05-pines-personales/     # Mis Pines Personales: marcadores y notas privadas del jugador
 │   │   ├── pines-personales.js  # Permite al visitante guardar sus propios puntos en el mapa
 │   │   └── pines-personales.css # Diseño visual de los pines personales
 │   │
-│   └── 06-modo-editor/          # Local 6: Herramienta de administración en 1 clic
-│       ├── modo-editor.js       # Calcula coordenadas (X%, Y%) al hacer clic y genera JSON
-│       └── modo-editor.css      # Panel flotante para crear y copiar nuevos puntos
+│   ├── 06-modo-editor/          # Modo Editor: herramienta de administración en 1 clic
+│   │   ├── modo-editor.js       # Calcula coordenadas (X%, Y%) al hacer clic y genera JSON
+│   │   └── modo-editor.css      # Panel flotante para crear y copiar nuevos puntos
+│   │
+│   ├── 07-chat-vivo/            # Chat Radio Leonida: comunidad en vivo 24h (planificado)
+│   │
+│   └── 08-en-vivo/              # Contador en Vivo: personas activas en la web (Supabase)
+│       ├── en-vivo.js           # Latido ligero via fetch() y RPC en Supabase
+│       └── en-vivo.css          # Cápsula minimalista sobre los controles del mapa
 │
 ├── recursos/                    # 🖼️ ARCHIVOS VISUALES OPTIMIZADOS
+│   ├── og-share.jpg             # Imagen Open Graph para WhatsApp y redes sociales
 │   ├── mapa/
 │   │   └── leonida-oficial.webp # Mapa oficial del Estado de Leonida y sus 6 regiones
 │   └── iconos/
-│       └── lamina-iconos.svg    # Hoja única con todos los iconos vectoriales estilo IGN (≤ 250 líneas)
+│       └── lamina-iconos.svg    # Hoja única con todos los iconos vectoriales estilo IGN
 │
-├── datos/                       # 🗂️ DATOS DEL MAPA POR REGIÓN (Todos ≤ 250 líneas)
-│   ├── categorias.json          # Definición de los 5 grupos de IGN, colores y nombres
-│   ├── ubicaciones-vice-city.json # Puntos del mapa en Vice City con su (X%, Y%)
-│   └── ubicaciones-regiones.json  # Puntos del resto de regiones de Leonida con su (X%, Y%)
+├── datos/                       # 🗂️ DATOS DEL MAPA POR REGIÓN
+│   ├── categorias.json          # Definición de los grupos y categorías, colores y nombres
+│   └── ubicaciones-*.json       # Puntos del mapa de Leonida con su (X%, Y%)
 │
-└── Markdown/                    # 📄 Documentación de filosofía, plano y hoja de ruta
-    ├── fundamentos/
-    │   └── conceptos.md         # Los 4 pilares: Centro Comercial, 100% Speed, Lápiz de Carbón y ≤ 250 Líneas
-    └── Mapa/
-        ├── mapa.md              # Plan maestro del mapa y catálogo de iconos de IGN
-        ├── mapa.word.md         # Checklist maestra de construcción paso a paso por fases
-        └── plano.md             # Este documento: plano tecnológico y estructura de código
+└── Markdown/                    # 📄 Documentación de visión, escalabilidad, chat y mapa
+    ├── chat/                    # chat.md, moderador.md, cache.md
+    └── Mapa/                    # mapa.md, mapa.word.md, plano.md, cartegorias.md
 ```
 
 ---
 
-## 3. ¿Cómo Funciona el Aislamiento de Locales? (El Tablero Eléctrico)
+## 3. ¿Cómo Funciona el Aislamiento de Módulos? (`central-locales.js`)
 
-El secreto para que ningún error en un local tumbe la web está en el archivo **`edificio/central-locales.js`**:
+El secreto para que ningún error en un módulo tumbe la web está en el archivo **`edificio/central-locales.js`**:
 
 1. **Lista de Interruptores (Encendido / Mantenimiento):**
-   El tablero central tiene una lista simple de qué locales están abiertos:
+   El tablero central tiene una lista simple de qué módulos están activos:
    ```javascript
    const ESTADO_LOCALES = {
-     iconosMapa: true,       // Local 1: Encendido
-     menuFiltros: true,      // Local 2: Encendido
-     tarjetaInfo: true,      // Local 3: Encendido
-     progresoJugador: true,  // Local 4: Encendido
-     pinesPersonales: true,  // Local 5: Encendido
-     modoEditor: false       // Local 6: Apagado para visitantes normales (solo tú lo enciendes)
+     iconosMapa: true,       // Iconos del Mapa: Encendido
+     menuFiltros: true,      // Menú de Filtros y Buscador: Encendido
+     tarjetaInfo: false,     // Tarjeta de Información: Pendiente
+     progresoJugador: false, // Progreso del Jugador: Pendiente
+     pinesPersonales: false, // Mis Pines Personales: Pendiente
+     modoEditor: false,      // Modo Editor: Apagado para visitantes
+     enVivo: true            // Contador en Vivo: Encendido
    };
    ```
 2. **Protección Anti-Fallos (Cortacircuitos individual):**
-   * Cada local se carga dentro de su propia cápsula de seguridad (`try / catch`).
-   * Si un local tiene un cable suelto o está en remodelación, el tablero eléctrico aísla ese local automáticamente y **el resto del edificio sigue funcionando al 100%**.
-3. **Comunicación Limpia entre Locales:**
-   * Los locales **nunca se tocan por dentro entre sí**.
-   * Se comunican por avisos simples a través del edificio (por ejemplo: el *Local 2 de Filtros* avisa *"Ocultar Bancos"* y el *Local 1 de Iconos* los oculta). Si el Local 2 está cerrado, el Local 1 simplemente muestra todos los iconos sin dar error.
+   * Cada módulo se carga dentro de su propia cápsula de seguridad (`try / catch`).
+   * Si un módulo falla o está en mantenimiento, el tablero lo aísla automáticamente y **el mapa sigue funcionando al 100%**.
+3. **Comunicación Limpia entre Módulos:**
+   * Los módulos **nunca se tocan por dentro entre sí**.
+   * Se comunican por avisos simples a través del motor principal (por ejemplo: **Menú de Filtros** avisa *"Ocultar Bancos"* e **Iconos del Mapa** los oculta). Si **Menú de Filtros** está apagado, **Iconos del Mapa** simplemente muestra todos los iconos sin dar error.
 
 ---
 

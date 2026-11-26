@@ -36,7 +36,7 @@ Este documento registra las tareas técnicas puntuales de optimización y experi
 - [x] **2.10** Garantizar que la animación suave de `enfocarCoordenada` / `centrarMapaInicial` / botones `➕`/`➖` / doble clic y el pellizco de 2 dedos (*pinch-to-zoom*) mantengan sincronizados terreno + iconos + etiquetas en el mismo `requestAnimationFrame` a 60 FPS sin desfase visual.
 
 ### Bloque D — Control de Calidad y Despliegue
-- [x] **2.11** 🛡️ **CONTROL DE CALIDAD (Vigilante):** Ajustar el margen en `vigilante/auditor.js` si algún archivo supera por poco las 250 líneas según el nuevo criterio de `Markdown/fundamentos/conceptos.md` (o dividir limpiamente si excede +100 líneas) y ejecutar `node vigilante/auditor.js` confirmando **0 errores**.
+- [x] **2.11** 🛡️ **CONTROL DE CALIDAD (Vigilante):** Ajustar el margen en `vigilante/auditor.js` si algún archivo supera por poco las 250 líneas según el nuevo criterio de `.agents/skills/fundamentos-cangel/SKILL.md` (o dividir limpiamente si excede +100 líneas) y ejecutar `node vigilante/auditor.js` confirmando **0 errores**.
 - [x] **2.12** 🛡️ **CONTROL DE CALIDAD (Run & Test Móvil + PC):** Probar en `http://localhost:5000` (viewport móvil `390×844` DPR 3× y escritorio `1440×900`):
   * Iconos visibles al 100% en modo **Atlas**, **Radar** y **Satélite** a `120%`, `160%`, `400%`, `800%` y zoom máximo.
   * Nitidez total en bordes SVG de iconos y detalles de calles/edificios en teselas HD sin costuras ni borrosidad.

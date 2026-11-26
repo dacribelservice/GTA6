@@ -19,7 +19,7 @@ Este documento detalla la optimización de caché en `vercel.json` para `https:/
 | :--- | :--- | :--- | :--- |
 | `/recursos/mapa/(.*)` | `public, max-age=31536000, immutable` | 1 año | Se conserva intacto; activos base estables. |
 | `/recursos/iconos/(.*)` y `/recursos/og-share.jpg` | `public, max-age=86400, stale-while-revalidate=604800` | 24h + 7d stale | Sprites e imagen OG cambian muy poco; ahorro directo en cada carga. |
-| `/(edificio\|locales\|datos)/(.*)` | `public, max-age=3600, stale-while-revalidate=86400` | 1h + 24h stale | Equilibrio exacto: ahorra cuota en los 13 JSON y módulos JS/CSS sin dejar usuarios pegados a código viejo cuando salgan `Local #3` o `Local #7`. |
+| `/(edificio\|locales\|datos)/(.*)` | `public, max-age=3600, stale-while-revalidate=86400` | 1h + 24h stale | Equilibrio exacto: ahorra cuota en los 13 JSON y módulos JS/CSS sin dejar usuarios pegados a código viejo cuando salgan **Tarjeta de Información** o **Chat Radio Leonida**. |
 | `/` (`index.html`) | Por defecto de Vercel (`max-age=0, must-revalidate`) | Siempre fresco | Garantiza que cada nuevo deploy entre limpio de inmediato. |
 | `/(.*)` *(Seguridad)* | `nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy` | Permanente | Se mantienen intactas las cabeceras de seguridad actuales. |
 
@@ -39,7 +39,13 @@ Este documento detalla la optimización de caché en `vercel.json` para `https:/
       ]
     },
     {
-      "source": "/recursos/(iconos/.*|og-share\\.jpg)",
+      "source": "/recursos/iconos/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+      ]
+    },
+    {
+      "source": "/recursos/og-share.jpg",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
       ]
@@ -67,15 +73,15 @@ Este documento detalla la optimización de caché en `vercel.json` para `https:/
 ## 4. Checklist Detallada de Implementación
 
 ### Fase 1: Preparación y Ajuste de `vercel.json`
-- [ ] **Paso 1.1:** Revisar el archivo actual `vercel.json` y confirmar que las 3 cabeceras de seguridad (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`) permanecen intactas.
-- [ ] **Paso 1.2:** Verificar que `/recursos/mapa/(.*)` conserva `public, max-age=31536000, immutable` sin modificaciones.
-- [ ] **Paso 1.3:** Actualizar la regla de iconos e imagen OG (`/recursos/(iconos/.*|og-share\.jpg)`) a `public, max-age=86400, stale-while-revalidate=604800`.
-- [ ] **Paso 1.4:** Cambiar `/(edificio|locales|datos)/(.*)` de `max-age=0, must-revalidate` a `public, max-age=3600, stale-while-revalidate=86400`.
-- [ ] **Paso 1.5:** Confirmar que no se agrega caché agresivo a `/` (`index.html`), dejándolo fresco para cada deploy de Vercel.
+- [x] **Paso 1.1:** Revisar el archivo actual `vercel.json` y confirmar que las 3 cabeceras de seguridad (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`) permanecen intactas.
+- [x] **Paso 1.2:** Verificar que `/recursos/mapa/(.*)` conserva `public, max-age=31536000, immutable` sin modificaciones.
+- [x] **Paso 1.3:** Actualizar `/recursos/iconos/(.*)` y agregar `/recursos/og-share.jpg` con `public, max-age=86400, stale-while-revalidate=604800`.
+- [x] **Paso 1.4:** Cambiar `/(edificio|locales|datos)/(.*)` de `max-age=0, must-revalidate` a `public, max-age=3600, stale-while-revalidate=86400`.
+- [x] **Paso 1.5:** Confirmar que no se agrega caché agresivo a `/` (`index.html`), dejándolo fresco para cada deploy de Vercel.
 
 ### Fase 2: Auditoría y Verificación Local
-- [ ] **Paso 2.1:** Ejecutar `node vigilante/auditor.js` y confirmar **`Exit code: 0`** (0 errores de sintaxis, JSON válido y límite de líneas aprobado).
-- [ ] **Paso 2.2:** Confirmar en `http://localhost:5000` que el mapa, filtros (`Local #2`) y contador en vivo (`Local #8`) cargan sin errores y sin regresiones.
+- [x] **Paso 2.1:** Ejecutar `node vigilante/auditor.js` y confirmar **`Exit code: 0`** (0 errores de sintaxis, JSON válido y límite de líneas aprobado).
+- [x] **Paso 2.2:** Confirmar en `http://localhost:5000` que el mapa, **Menú de Filtros** y **Contador en Vivo** cargan sin errores y sin regresiones.
 
 ### Fase 3: Despliegue y Validación en Producción (`www.cangel.games`)
 - [ ] **Paso 3.1:** Con orden expresa de Cristian, realizar `git commit` y `git push origin main` para disparar el despliegue automático en Vercel.

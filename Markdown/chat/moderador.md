@@ -1,6 +1,6 @@
-# Planificación Inicial — Moderador y Guía IA 24/7 (`Local #7`)
+# Planificación Inicial — Moderador y Guía IA 24/7 (Chat Radio Leonida)
 
-Este documento define la arquitectura y reglas del **Moderador y Asistente IA** para el chat en vivo de `www.cangel.games` (`Markdown/chat/chat.md`), respetando estrictamente los **4 pilares arquitectónicos de `Markdown/fundamentos/conceptos.md`**:
+Este documento define la arquitectura y reglas del **Moderador y Asistente IA** para el **Chat Radio Leonida** de `www.cangel.games` (`Markdown/chat/chat.md`), respetando estrictamente los **Fundamentos Cangel** (`.agents/skills/fundamentos-cangel/SKILL.md`):
 * **Centro Comercial (LEGO):** Aislado del núcleo del mapa y del propio envío de mensajes (si la Edge Function de IA falla o entra en mantenimiento, el mapa y el chat siguen operando).
 * **Velocidad Extrema (100/100 Google PageSpeed):** Corre 100% en servidor (0 KB extra en la carga inicial del navegador).
 * **Filosofía del Lápiz de Carbón:** Moderación híbrida en 2 capas (reglas nativas a costo \$0 + IA ligera solo cuando hace falta) para proteger la reputación de **CANGEL GAMES** (`@cangelgames` / `cangelgames.store`).

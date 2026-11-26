@@ -1,6 +1,6 @@
-# Planificación Inicial — Local #7: Chat en Vivo 24 Horas ("Radio Leonida")
+# Planificación Inicial — Chat Radio Leonida (En Vivo 24 Horas)
 
-Este documento define la **planificación inicial, estrategia, modelo de usuarios globales, arquitectura técnica con Supabase y funcionalidades complementarias** para el chat en vivo efímero (24 horas) estilo grupo de WhatsApp de `www.cangel.games`, respetando estrictamente los **4 pilares del proyecto** (`Markdown/fundamentos/conceptos.md`): **Centro Comercial (LEGO)**, **100/100 en Google PageSpeed**, **Filosofía del Lápiz de Carbón** y **Regla de Oro (~250 líneas por archivo)**.
+Este documento define la **planificación inicial, estrategia, modelo de usuarios globales, arquitectura técnica con Supabase y funcionalidades complementarias** para el **Chat Radio Leonida** (efímero de 24 horas estilo grupo de WhatsApp) de `www.cangel.games`, respetando estrictamente los **Fundamentos Cangel** (`.agents/skills/fundamentos-cangel/SKILL.md`): **Arquitectura Modular (LEGO)**, **100/100 en Google PageSpeed**, **Filosofía del Lápiz de Carbón** y **umbral saludable de líneas (180–350, techo duro 350)**.
 
 ---
 
@@ -23,9 +23,9 @@ Integrar un chat en vivo directamente sobre el mapa interactivo de GTA 6 convier
 
 ---
 
-## 2. Arquitectura Modular: Local #7 (`locales/07-chat-vivo/`)
+## 2. Arquitectura Modular: Chat Radio Leonida (`locales/07-chat-vivo/`)
 
-El chat se integrará como un local 100% independiente dentro del tablero eléctrico (`edificio/central-locales.js`) mediante el interruptor `chatVivo: true`. Si entra en mantenimiento o Supabase presenta una falla, el mapa y el resto de locales siguen funcionando sin interrupciones.
+El **Chat Radio Leonida** se integrará como un módulo 100% independiente dentro del registro de módulos (`edificio/central-locales.js`) mediante el interruptor `chatVivo: true`. Si entra en mantenimiento o Supabase presenta una falla, el mapa y el resto de módulos siguen funcionando sin interrupciones.
 
 ### Distribución de Archivos (Regla de Oro: ~250 líneas c/u)
 ```text
@@ -94,7 +94,7 @@ Para evitar el caos de meter a miles de personas en una sola conversación ilegi
 3. **Expansión elástica automática:** Solo cuando `Sesión #1` alcanza el tope (80 usuarios), el sistema abre automáticamente `Sesión #2` y dirige allí a los nuevos visitantes (`#3`, `#4`... de forma ilimitada).
 4. **Agrupación global por idioma:** Al escalar tráfico internacional, las sesiones se segmentan primero por idioma detectado por país (`🇪🇸 Español #1`, `🇺🇸 English #1`, `🇧🇷 Português #1`) y cada idioma se expande elásticamente según su demanda.
 5. **Selector manual para amigos:** Cada usuario ve su sesión actual (ej. `Sesión #2 · 64/80`) y puede cambiar manualmente a otra sesión con cupo disponible para coincidir con amigos.
-6. **Simplicidad técnica:** En base de datos basta un único campo `sala` (ej. `es-general-1`, `es-general-2`, `en-global-1`); el mismo código del Local #7 funciona igual para 1 sesión o para 500 sesiones.
+6. **Simplicidad técnica:** En base de datos basta un único campo `sala` (ej. `es-general-1`, `es-general-2`, `en-global-1`); el mismo código de **Chat Radio Leonida** funciona igual para 1 sesión o para 500 sesiones.
 
 ---
 
@@ -119,7 +119,7 @@ Para dinamizar el chat, premiar a quienes aportan ayuda real y multiplicar los r
 
 ### C. Candados Anti-Trampa (Costo \$0 en Supabase) y Cumplimiento de los 4 Pilares
 * **3 candados automáticos en BD:** (1) prohibido auto-darse `❤️`, (2) máximo **1 `❤️` por persona y comentario** (tocar de nuevo lo retira), y (3) **solo cuentas registradas con Google** pueden dar o acumular `❤️` (bloquea farmeo con invitados o bots).
-* **Alineación con los 4 pilares (`Markdown/fundamentos/conceptos.md`):** 100% aislado dentro del **Local #7 (LEGO)**; **0 KB extra** en carga inicial y cero imágenes externas para **100/100 PageSpeed** (insignias por emoji nativo + CSS); **Lápiz de Carbón** (un solo botón `❤️` y el rango se calcula al vuelo en ~10 líneas según `likes_totales` sin tablas complejas); y compacto para respetar la **Regla de Oro (~250 líneas)** auditada por `vigilante/auditor.js`.
+* **Alineación con los Fundamentos Cangel (`.agents/skills/fundamentos-cangel/SKILL.md`):** 100% aislado dentro del módulo **Chat Radio Leonida** (LEGO); **0 KB extra** en carga inicial y cero imágenes externas para **100/100 PageSpeed** (insignias por emoji nativo + CSS); **Lápiz de Carbón** (un solo botón `❤️` y el rango se calcula al vuelo en ~10 líneas según `likes_totales` sin tablas complejas); y compacto para respetar el **umbral de líneas** auditado por `vigilante/auditor.js`.
 
 ---
 

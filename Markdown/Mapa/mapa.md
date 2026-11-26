@@ -100,25 +100,27 @@ Para que nuestra web cargue todos estos iconos de una sola vez pero vuele al **1
 
 ---
 
-## 4. Los 6 "Locales" del Centro Comercial (Módulos Independientes)
+## 4. Módulos Independientes del Mapa (Arquitectura LEGO)
 
-Siguiendo nuestra arquitectura modular, cada función será un "local" con su propia energía (`.js`) y agua (`.css`):
+Siguiendo nuestra arquitectura modular, cada función corre aislada con su propia lógica (`.js`) y estilos (`.css`):
 
-| Local (Módulo) | Función Principal | ¿Qué pasa si se apaga por mantenimiento? |
+| Módulo (Nombre Real) | Función Principal | ¿Qué pasa si se apaga por mantenimiento? |
 | :--- | :--- | :--- |
-| **Edificio (Core Visor)** | Muestra el mapa de Leonida, controla el zoom/movimiento a 60 FPS, modos de vista y enlaces `#punto=`. | Es la base; siempre está encendido y no depende de ningún local. |
-| **Local 1: Capa de Iconos** (`01-iconos-mapa`) | Lee `ubicaciones-vice-city.json` y `ubicaciones-regiones.json` y dibuja los iconos SVG sobre el mapa. | El mapa sigue pudiendo explorarse y moverse con normalidad. |
-| **Local 2: Filtros y Buscador** (`02-menu-filtros`) | Panel lateral estilo IGN para encender/apagar categorías o buscar por nombre/región al instante. | Los iconos siguen visibles en el mapa aunque el panel lateral esté cerrado o en mantenimiento. |
-| **Local 3: Tarjeta de Info** (`03-tarjeta-info`) | Ventana ligera que se abre al tocar un icono (muestra foto bajo demanda, pista y botón **"Copiar enlace directo"** `#punto=id`). | El usuario sigue viendo el mapa y los iconos sin interrupciones. |
-| **Local 4: Progreso del Jugador** (`04-progreso-jugador`) | Permite marcar coleccionables como *"Completado"* ✅ en `localStorage` **sin obligar a crear cuenta como hace IGN**, más **Exportar/Importar progreso**. | Los iconos se ven normales; no bloquea ninguna función del mapa. |
-| **Local 5: Mis Pines Personales** (`05-pines-personales`) | Permite a cualquier jugador colocar sus propios marcadores y notas privadas en el mapa. | El mapa oficial y sus coleccionables siguen funcionando al 100%. |
-| **Local 6: Modo Editor (1 Clic)** (`06-modo-editor`) | Herramienta interna de administración para hacer clic en el mapa, obtener su coordenada `(X%, Y%)` y copiar el JSON en 1 segundo. | Es un local exclusivo de administración; los visitantes normales lo tienen apagado por defecto. |
+| **Motor Principal del Mapa** (`edificio/`) | Muestra el mapa de Leonida, controla el zoom/movimiento a 60 FPS, modos de vista y enlaces `#punto=`. | Es la base; siempre está encendido y no depende de ningún módulo. |
+| **Iconos del Mapa** (`locales/01-iconos-mapa/`) | Lee los archivos de `datos/` y dibuja los iconos SVG sobre el mapa. | El mapa sigue pudiendo explorarse y moverse con normalidad. |
+| **Menú de Filtros y Buscador** (`locales/02-menu-filtros/`) | Panel lateral estilo IGN para encender/apagar categorías o buscar por nombre/región al instante. | Los iconos siguen visibles en el mapa aunque el panel lateral esté cerrado o en mantenimiento. |
+| **Tarjeta de Información** (`locales/03-tarjeta-info/`) | Ventana ligera que se abre al tocar un icono (muestra foto bajo demanda, pista y botón **"Copiar enlace directo"** `#punto=id`). | El usuario sigue viendo el mapa y los iconos sin interrupciones. |
+| **Progreso del Jugador** (`locales/04-progreso-jugador/`) | Permite marcar coleccionables como *"Completado"* ✅ en `localStorage` **sin obligar a crear cuenta como hace IGN**, más **Exportar/Importar progreso**. | Los iconos se ven normales; no bloquea ninguna función del mapa. |
+| **Mis Pines Personales** (`locales/05-pines-personales/`) | Permite a cualquier jugador colocar sus propios marcadores y notas privadas en el mapa. | El mapa oficial y sus coleccionables siguen funcionando al 100%. |
+| **Modo Editor (1 Clic)** (`locales/06-modo-editor/`) | Herramienta interna de administración para hacer clic en el mapa, obtener su coordenada `(X%, Y%)` y copiar el JSON en 1 segundo. | Es un módulo exclusivo de administración; los visitantes normales lo tienen apagado por defecto. |
+| **Chat Radio Leonida** (`locales/07-chat-vivo/`) | Chat comunitario en vivo de 24 horas con carga bajo demanda, rangos y ubicaciones clicables. | El mapa y el resto de módulos siguen operando al 100%. |
+| **Contador en Vivo** (`locales/08-en-vivo/`) | Cápsula discreta que muestra cuántas personas exploran el mapa en tiempo real. | El mapa sigue operando al 100% sin mostrar el indicador. |
 
 ---
 
 ## 5. Orden de Construcción Paso a Paso
 
-1. **Paso 1:** Crear los cimientos, el **Vigilante de Calidad (`vigilante/auditor.js`)** y el **Edificio (Core)** con el mapa del Estado de Leonida optimizado a 60 FPS.
+1. **Paso 1:** Crear los cimientos, el **Vigilante de Calidad (`vigilante/auditor.js`)** y el **Motor Principal del Mapa** con el mapa del Estado de Leonida optimizado a 60 FPS.
 2. **Paso 2:** Crear **`recursos/iconos/lamina-iconos.svg`** y los archivos **`datos/categorias.json`**, **`datos/ubicaciones-vice-city.json`** y **`datos/ubicaciones-regiones.json`**.
-3. **Paso 3:** Conectar el **Local 1 (Iconos)** y el **Local 2 (Menú de Filtros y Buscador estilo IGN)**.
-4. **Paso 4:** Conectar el **Local 3 (Tarjeta de Info y Enlaces Directos)**, el **Local 4 (Progreso sin cuenta + Exportar/Importar)**, el **Local 5 (Mis Pines Personales)** y el **Local 6 (Modo Editor en 1 Clic)**.
+3. **Paso 3:** Conectar **Iconos del Mapa** y **Menú de Filtros y Buscador**.
+4. **Paso 4:** Conectar **Contador en Vivo**, **Tarjeta de Información**, **Chat Radio Leonida**, **Progreso del Jugador**, **Mis Pines Personales** y **Modo Editor**.

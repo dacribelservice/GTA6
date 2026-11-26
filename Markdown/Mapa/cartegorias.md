@@ -20,8 +20,8 @@ Este documento define la hoja de ruta detallada para expandir el mapa interactiv
 | **Ubicaciones Grupo 6** | `datos/ubicaciones-interes-actividades.json` | ATMs (193), Gimnasios, Ammu-Nation, Recreativas, Pesca, Tiro = 312 puntos | **≤ 330 líneas** |
 | **Ubicaciones Grupo 7** | `datos/ubicaciones-carreras-deportes.json` | Carreras (95) + Baloncesto y Deportes (122) + Cartas (90) = 307 puntos | **≤ 330 líneas** |
 | **Lámina de Iconos SVG** | `recursos/iconos/lamina-iconos.svg` | Hoja SVG única con los símbolos vectoriales de las 76 categorías | **≤ 250 líneas** |
-| **Local #1: Capa Iconos** | `locales/01-iconos-mapa/iconos-mapa.js` | Carga paralela de archivos y Viewport Culling a 60 FPS | **≤ 180 líneas** |
-| **Local #2: Menú Filtros** | `locales/02-menu-filtros/menu-filtros.js` | Filtros por los 13 grupos y buscador instantáneo de los 2.532 puntos | **≤ 210 líneas** |
+| **Iconos del Mapa** | `locales/01-iconos-mapa/iconos-mapa.js` | Carga paralela de archivos y Viewport Culling a 60 FPS | **≤ 180 líneas** |
+| **Menú de Filtros** | `locales/02-menu-filtros/menu-filtros.js` | Filtros por los 13 grupos y buscador instantáneo de los 2.532 puntos | **≤ 210 líneas** |
 
 ---
 

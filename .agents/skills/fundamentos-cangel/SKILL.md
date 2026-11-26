@@ -31,9 +31,10 @@ Esta Skill representa el **ADN filosófico, técnico y operativo de Cangel Games
 > 🛑 **¡ALTO! PROHIBIDO TOCAR CÓDIGO EXISTENTE PARA "MODERNIZARLO"**  
 > **La web actual es un carro que YA rueda y funciona a 60 FPS.** Reescribir módulos estables solo para adaptarlos a teorías nuevas equivale a cortar el chasis del carro en marcha.
 
-1. **Lo que funciona no se refactoriza:** El **Edificio Principal** (`edificio/visor-mapa.js`, `edificio/edificio.css`) y los **Locales** ya probados (`01-iconos-mapa`, `02-menu-filtros`, `08-en-vivo`) se consideran estables.
-2. **El Remolque (Locales Aislados):** Cada nueva funcionalidad entra como un **Local independiente** dentro de `locales/` con su propio CSS/JS e interruptor aislado (`try / catch`) en `edificio/central-locales.js`. Si un local falla o se apaga, el mapa sigue operando al 100%.
+1. **Lo que funciona no se refactoriza:** El **Motor Principal del Mapa** (`edificio/visor-mapa.js`, `edificio/edificio.css`) y los **módulos independientes** ya probados (**Iconos del Mapa**, **Menú de Filtros**, **Contador en Vivo**) se consideran estables.
+2. **El Remolque (Módulos Independientes):** Cada nueva funcionalidad entra como un **módulo independiente** dentro de `locales/` con su propio CSS/JS e interruptor aislado (`try / catch`) en `edificio/central-locales.js`. Si un módulo falla o se apaga, el mapa sigue operando al 100%.
 3. **Aplicación Exclusiva a Código Nuevo:** Las reglas nuevas aplican únicamente a módulos, tablas y piezas creadas desde cero.
+4. **Comunicación por Nombre Real (Obligatoria):** Llamar siempre cada módulo por su **nombre real** (*Iconos del Mapa*, *Menú de Filtros*, *Tarjeta de Información*, *Progreso del Jugador*, *Mis Pines Personales*, *Modo Editor*, *Chat Radio Leonida*, *Contador en Vivo*). **PROHIBIDO** llamarlos por número (*"Local #1"*, *"Local #3"*, *"Local #7"*, etc.) en conversación o documentación.
 
 ---
 
@@ -61,7 +62,7 @@ La IA debe clasificar cualquier hallazgo o propuesta dentro de esta escala:
 1. **Umbral Saludable de Líneas (180 a 350 líneas · Techo Duro 350):**
    * **180 líneas** es la referencia sugerida y el rango **180 a 350 líneas** es un margen flexible (**no una camisa de fuerza**): jamás entregar código roto, mutilado o incompleto por evitar pasar de 180 líneas.
    * **Techo duro de 350 líneas:** Si un archivo supera sí o sí las **350 líneas**, entonces sí se divide limpiamente en submódulos compactos (ej. ~150 y ~150 líneas) para mantener legibilidad y aprobar `vigilante/auditor.js`.
-2. **Un Archivo, Una Sola Responsabilidad (Cero Mega-Locales):**
+2. **Un Archivo, Una Sola Responsabilidad (Cero Mega-Módulos):**
    * Prohibidos los monolitos donde el motor del mapa, filtros, red y paneles de UI convivan en el mismo archivo.
 3. **Tipado Estricto (CERO `any`):**
    * En cualquier archivo TypeScript, Edge Function de Supabase o contrato tipado que se incorpore, **cero `any`**. Validar siempre entradas y esquemas de datos.
