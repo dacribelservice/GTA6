@@ -136,3 +136,12 @@ Este documento registra las tareas técnicas puntuales de optimización y experi
 - [x] **4.14** Encender `tarjetaInfo: true` en `edificio/central-locales.js` dentro de su cortacircuitos aislado (`try / catch`).
 - [x] **4.15** 🛡️ **CONTROL DE CALIDAD (Vigilante):** Ejecutar `node vigilante/auditor.js` confirmando **0 errores** y respeto estricto al techo duro de **≤ 350 líneas** por archivo.
 - [x] **4.16** 🛡️ **CONTROL DE CALIDAD (Pruebas Reales Móvil + PC):** Probar en `http://localhost:5000` y `http://localhost:5000/admin`: clic en marcador → subir foto como visitante (aviso de revisión) → entrar por `/admin` con modal correo/contraseña → aprobar foto → ver foto en vivo → probar *"Esta foto no es"* → apagar `tarjetaInfo: false` verificando que el mapa sigue operando al 100%.
+
+---
+
+## Fase 5: Optimización Móvil de Dimensiones y Compresión Ligera (`locales/03-tarjeta-info/compresor-imagen.js`)
+*Objetivo: Calibrar las dimensiones máximas de las fotografías al tamaño real óptimo para móvil y visor ampliado (`960 × 540 px` en `16:9`) y reducir el peso objetivo a `≤ 100 KB`, logrando ~`45–75 KB` en WebP (Chrome/Android/PC) y ~`70–95 KB` en respaldo JPG (iPhone/Safari) para casi duplicar la capacidad del 1 GB gratuito de Supabase y acelerar la apertura en 4G.*
+
+- [x] **5.1** Ajustar en `locales/03-tarjeta-info/compresor-imagen.js` el ancho máximo `MAX_ANCHO_PX` de `1200 px` → **`960 px`** (manteniendo nitidez Retina 2.6× sobre la **Tarjeta de Información** y excelente calidad en el visor en grande).
+- [x] **5.2** Ajustar el tope adaptativo `OBJETIVO_BYTES` de `180 KB` → **`100 KB`** (manteniendo los pasos de compresión automática `WebP` y el respaldo `JPEG` para Safari/iOS sin perder legibilidad ni metadatos EXIF limpios).
+- [x] **5.3** 🛡️ **CONTROL DE CALIDAD (Vigilante + Prueba Real):** Ejecutar `node vigilante/auditor.js` confirmando **0 errores** y validar en `http://localhost:5000` que una foto de prueba reduce sus dimensiones a `≤ 960 px` y su peso final queda en el rango objetivo (`~45–95 KB`).

@@ -1,14 +1,14 @@
 /**
  * 🗜️ COMPRESOR NATIVO DE IMÁGENES EN CLIENTE (compresor-imagen.js <= 180 líneas)
- * Carga 100% bajo demanda (0 KB al abrir el mapa). Redimensiona a máx. 1200 px,
- * comprime adaptativamente a WebP (60-150 KB, pasos <= 180 KB, respaldo JPEG),
+ * Carga 100% bajo demanda (0 KB al abrir el mapa). Redimensiona a máx. 960 px,
+ * comprime adaptativamente a WebP (45-75 KB, pasos <= 100 KB, respaldo JPEG),
  * elimina metadatos EXIF al redibujar en <canvas> y genera vista previa 16:9.
  */
 
 const TIPOS_VALIDOS = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/avif']);
 const MAX_ENTRADA_BYTES = 15 * 1024 * 1024;
-const MAX_ANCHO_PX = 1200;
-const OBJETIVO_BYTES = 180 * 1024;
+const MAX_ANCHO_PX = 960;
+const OBJETIVO_BYTES = 100 * 1024;
 const LIMITE_BUCKET_BYTES = 480 * 1024;
 const CALIDADES_WEBP = [0.8, 0.7, 0.6, 0.5];
 const CALIDADES_JPEG = [0.82, 0.72, 0.62, 0.52];
