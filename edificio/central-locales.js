@@ -11,7 +11,8 @@ export const ESTADO_LOCALES = {
   tarjetaInfo: false,      // Local 3 (Se enciende en Fase 6)
   progresoJugador: false,  // Local 4 (Se enciende en Fase 6)
   pinesPersonales: false,  // Local 5 (Se enciende en Fase 7)
-  modoEditor: false        // Local 6 (Se enciende en Fase 7)
+  modoEditor: false,       // Local 6 (Se enciende en Fase 7)
+  enVivo: true             // Local 8: Encendido (Contador en vivo Supabase)
 };
 
 const CATALOGO_LOCALES = [
@@ -56,6 +57,13 @@ const CATALOGO_LOCALES = [
     css: './locales/06-modo-editor/modo-editor.css',
     js: '../locales/06-modo-editor/modo-editor.js',
     iniciar: 'iniciarModoEditor'
+  },
+  {
+    clave: 'enVivo',
+    nombre: 'Local #8: Contador en Vivo',
+    css: './locales/08-en-vivo/en-vivo.css',
+    js: '../locales/08-en-vivo/en-vivo.js',
+    iniciar: 'iniciarEnVivo'
   }
 ];
 

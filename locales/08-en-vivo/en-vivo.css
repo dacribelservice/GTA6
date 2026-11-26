@@ -1,0 +1,88 @@
+/* 🟢 LOCAL #8: CONTADOR EN VIVO (en-vivo.css <= 80 líneas) */
+.ev-pill {
+  padding: 6px 11px;
+  gap: 7px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--texto-base);
+  letter-spacing: 0.01em;
+  line-height: 1;
+  pointer-events: auto;
+  animation: ev-aparecer 0.25s ease-out;
+}
+
+.ev-pill[hidden] {
+  display: none;
+}
+
+.ev-pill.ev-flotante {
+  position: fixed;
+  right: 16px;
+  bottom: 124px;
+  z-index: 40;
+}
+
+.ev-punto {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.85);
+  flex-shrink: 0;
+}
+
+.ev-punto::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1.5px solid #22c55e;
+  opacity: 0;
+  animation: ev-pulso 2.2s cubic-bezier(0.2, 0.7, 0.3, 1) infinite;
+}
+
+.ev-etiqueta {
+  color: #86efac;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.ev-sep {
+  opacity: 0.45;
+}
+
+.ev-num {
+  font-family: ui-monospace, 'Cascadia Code', monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.ev-unidad {
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+@keyframes ev-pulso {
+  0% { transform: scale(0.7); opacity: 0.85; }
+  75%, 100% { transform: scale(1.9); opacity: 0; }
+}
+
+@keyframes ev-aparecer {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ev-punto::after, .ev-pill { animation: none; }
+}
+
+@media (max-width: 640px) {
+  .ev-pill { padding: 5px 9px; gap: 5px; font-size: 0.71rem; }
+  .ev-etiqueta { font-size: 0.63rem; }
+  .ev-num { font-size: 0.76rem; }
+}
