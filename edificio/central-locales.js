@@ -6,13 +6,13 @@
 import { iniciarVisorMapa, enfocarCoordenada } from './visor-mapa.js';
 
 export const ESTADO_LOCALES = {
-  iconosMapa: true,        // Local 1: Encendido
-  menuFiltros: true,       // Local 2: Encendido
-  tarjetaInfo: false,      // Local 3 (Se enciende en Fase 6)
-  progresoJugador: false,  // Local 4 (Se enciende en Fase 6)
-  pinesPersonales: false,  // Local 5 (Se enciende en Fase 7)
-  modoEditor: false,       // Local 6 (Se enciende en Fase 7)
-  enVivo: true             // Local 8: Encendido (Contador en vivo Supabase)
+  iconosMapa: true,        // Iconos del Mapa: Encendido
+  menuFiltros: true,       // Menú de Filtros: Encendido
+  tarjetaInfo: true,       // Tarjeta de Información: Encendido
+  progresoJugador: false,  // Progreso del Jugador (Pendiente)
+  pinesPersonales: false,  // Mis Pines Personales (Pendiente)
+  modoEditor: false,       // Modo Editor (Pendiente)
+  enVivo: true             // Contador en Vivo: Encendido (Supabase)
 };
 
 const CATALOGO_LOCALES = [

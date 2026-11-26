@@ -1,0 +1,94 @@
+/* 🔐 ADMIN PROVISIONAL (/admin) — ESTILOS AISLADOS Y REMOVIBLES (<= 120 líneas) */
+.ta-barra {
+  position: fixed; top: 14px; left: 50%; z-index: 60;
+  transform: translateX(-50%);
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 10px; border-radius: 12px;
+  background: var(--panel-bg); color: var(--texto-base);
+  border: 1px solid rgba(255, 193, 104, 0.55);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.52);
+  font-size: 0.76rem; font-weight: 800;
+}
+.ta-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  color: #ffe3b0; letter-spacing: 0.03em; text-transform: uppercase;
+}
+.ta-contador {
+  padding: 2px 7px; border-radius: 999px; font-size: 0.72rem;
+  background: var(--acento-neon); color: #fff;
+}
+.ta-btn-mini {
+  appearance: none; cursor: pointer; padding: 5px 10px; border-radius: 8px;
+  font-size: 0.73rem; font-weight: 800; color: var(--texto-base);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+.ta-btn-mini:hover { border-color: var(--acento-cyan); }
+.ta-btn-salir:hover { border-color: var(--acento-neon); color: #ffd0de; }
+
+.ta-cola {
+  width: min(720px, 100%); max-height: 88dvh; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 12px;
+  padding: 16px; border-radius: 16px;
+  background: var(--panel-bg); color: var(--texto-base);
+  border: 1px solid var(--panel-borde);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.7);
+}
+.ta-lista { display: flex; flex-direction: column; gap: 12px; }
+.ta-item {
+  display: flex; flex-direction: column; gap: 10px;
+  padding: 12px; border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.ta-item-top {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  justify-content: space-between;
+}
+.ta-item-titulo { font-size: 0.9rem; font-weight: 900; }
+.ta-item-meta { font-size: 0.74rem; color: rgba(241, 245, 249, 0.75); }
+.ta-tag-rep {
+  padding: 2px 8px; border-radius: 999px; font-size: 0.69rem; font-weight: 800;
+  background: rgba(255, 42, 133, 0.2); color: #ffd0de;
+  border: 1px solid rgba(255, 42, 133, 0.5);
+}
+
+.ta-comparar {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+.ta-col { display: flex; flex-direction: column; gap: 5px; }
+.ta-col-lbl {
+  font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.04em; color: rgba(241, 245, 249, 0.72);
+}
+.ta-thumb {
+  position: relative; width: 100%; aspect-ratio: 16 / 9;
+  border-radius: 10px; overflow: hidden; background: #0b101b;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.74rem; color: rgba(241, 245, 249, 0.55);
+}
+.ta-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ta-thumb-nueva { border-color: rgba(255, 193, 104, 0.65); }
+
+.ta-btn-aprobar {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #fff; border-color: transparent;
+}
+.ta-btn-rechazar {
+  background: rgba(255, 42, 133, 0.14);
+  color: #ffd0de; border-color: rgba(255, 42, 133, 0.45);
+}
+.ta-btn-oficial {
+  flex: 1 1 100%;
+  color: #ffe3b0;
+}
+.ta-vacio {
+  padding: 28px 14px; text-align: center;
+  font-size: 0.84rem; color: rgba(241, 245, 249, 0.75);
+}
+
+@media (max-width: 640px) {
+  .ta-barra { top: auto; bottom: 72px; max-width: calc(100vw - 20px); flex-wrap: wrap; justify-content: center; }
+  .ta-comparar { grid-template-columns: 1fr; }
+}

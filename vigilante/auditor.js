@@ -83,7 +83,11 @@ function auditar() {
 function iniciarServidor() {
   const handler = (req, res) => {
     const urlLimpia = decodeURIComponent(req.url.split('?')[0]);
-    const rel = urlLimpia === '/' ? 'index.html' : urlLimpia.replace(/^\/+/, '');
+    if (urlLimpia === '/admin/') {
+      res.writeHead(302, { Location: '/admin' });
+      return res.end();
+    }
+    const rel = (urlLimpia === '/' || urlLimpia === '/admin') ? 'index.html' : urlLimpia.replace(/^\/+/, '');
     const destino = path.resolve(RAIZ, rel);
     if (!destino.startsWith(RAIZ) || !fs.existsSync(destino) || fs.statSync(destino).isDirectory()) {
       res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
