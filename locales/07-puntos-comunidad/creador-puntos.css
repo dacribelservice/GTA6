@@ -1,0 +1,247 @@
+/* 🎯 CREADOR DE PUNTOS COMUNITARIOS (creador-puntos.css <= 200 líneas) */
+/* Carga 100% bajo demanda al pulsar "+ Proponer punto" (0 KB en arranque inicial) */
+
+.cp-mira-capa {
+  position: fixed;
+  inset: 0;
+  z-index: 62;
+  pointer-events: none;
+}
+
+.cp-mira-centro {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  color: #ff2a85;
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.85));
+}
+
+.cp-mira-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.cp-barra-mira {
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: min(360px, calc(100vw - 24px));
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--panel-bg, rgba(10, 14, 22, 0.96));
+  color: var(--texto-base, #f8fafc);
+  border: 1.5px solid transparent;
+  background-image: linear-gradient(var(--panel-bg, #0b101b), var(--panel-bg, #0b101b)),
+    linear-gradient(135deg, #3454d1 0%, #8a3ab9 30%, #ff2a85 56%, #ff6b52 80%, #ffc168 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.65);
+}
+
+.cp-mira-texto {
+  font-size: 0.77rem;
+  font-weight: 700;
+  text-align: center;
+  color: rgba(248, 250, 252, 0.9);
+}
+
+.cp-mira-coords {
+  font-family: ui-monospace, 'Cascadia Code', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--acento-cyan, #00f0ff);
+}
+
+.cp-mira-coords.cp-fuera {
+  color: #fda4af;
+}
+
+.cp-mira-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 100%;
+}
+
+/* Modal creador minimalista (reutiliza estética plana y marco 16:9 GTA 6) */
+.cp-modal {
+  width: min(460px, 100%);
+  max-height: 92dvh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--panel-bg, rgba(10, 14, 22, 0.97));
+  color: var(--texto-base, #f8fafc);
+  border: 1px solid var(--panel-borde, rgba(255, 42, 133, 0.35));
+  box-shadow: 0 22px 56px rgba(0, 0, 0, 0.7);
+  transform: scale(0.95);
+  opacity: 0;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms ease;
+}
+
+.ti-modal-fondo.ti-abierto .cp-modal {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.cp-fila-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.cp-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.cp-campo input,
+.cp-campo select,
+.cp-campo textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-family: inherit;
+  background: rgba(13, 19, 32, 0.92);
+  color: var(--texto-base, #f8fafc);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  outline: none;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.cp-campo textarea {
+  resize: vertical;
+  min-height: 62px;
+  max-height: 140px;
+}
+
+.cp-campo input:focus,
+.cp-campo select:focus,
+.cp-campo textarea:focus {
+  border-color: var(--acento-cyan, #00f0ff);
+}
+
+.cp-galeria-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cp-galeria-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.cp-galeria-sub {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: rgba(241, 245, 249, 0.65);
+}
+
+.cp-galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
+  gap: 6px;
+  max-height: 122px;
+  overflow-y: auto;
+  padding: 6px;
+  border-radius: 10px;
+  background: rgba(6, 10, 18, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.cp-modal::-webkit-scrollbar, .cp-galeria::-webkit-scrollbar { width: 5px; }
+.cp-modal::-webkit-scrollbar-thumb, .cp-galeria::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22); border-radius: 999px;
+}
+
+.cp-icono-btn {
+  appearance: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--cp-color, #ff2a85);
+  border: 1.5px solid transparent;
+  transition: background 0.12s ease, border-color 0.12s ease, transform 0.1s ease;
+}
+
+.cp-icono-btn svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.cp-icono-btn:hover {
+  background: rgba(255, 255, 255, 0.11);
+}
+
+.cp-icono-btn.activo {
+  background: var(--cp-color, #ff2a85);
+  color: #090b10;
+  border-color: #fff;
+}
+
+.cp-quitar-foto {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  appearance: none;
+  cursor: pointer;
+  padding: 5px 9px;
+  border-radius: 8px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  background: rgba(7, 10, 18, 0.88);
+  color: #ffd0de;
+  border: 1px solid rgba(255, 42, 133, 0.55);
+}
+
+.cp-badge-admin {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 0.66rem;
+  font-weight: 800;
+  background: rgba(255, 193, 104, 0.18);
+  color: #ffe3b0;
+  border: 1px solid rgba(255, 193, 104, 0.55);
+}
+
+.cp-error {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #fda4af;
+  min-height: 1em;
+}
+
+@media (max-width: 560px) {
+  .cp-fila-2 { grid-template-columns: 1fr; }
+  .cp-barra-mira { bottom: 12px; padding: 10px 12px; }
+}

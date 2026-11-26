@@ -10,7 +10,7 @@ const SUPABASE_URL = 'https://ktnrjoewhhfjbmqyxfij.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_mi9MnkRKfMlhk7YUi3rgaQ_hp6Ni393';
 const CLAVE_TOKEN = 'gta6_cangel_admin_token';
 
-let contextoRef = null, avisar = null, tokenAdmin = '';
+let contextoRef = null, avisar = null, tokenAdmin = '', tabActiva = 'fotos', ctrlPuntos = null;
 let barraEl = null, modalLogin = null, modalCola = null, inputOficial = null;
 let puntoSubidaOficial = null, titulosPorId = new Map(), pendientesCache = [], iniciado = false;
 
@@ -20,9 +20,7 @@ const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({
 
 function cargarCssAdmin() {
   if (document.querySelector('link[data-local-css="tarjetaAdmin"]')) return;
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = './locales/03-tarjeta-info/tarjeta-admin.css';
+  const link = Object.assign(document.createElement('link'), { rel: 'stylesheet', href: './locales/03-tarjeta-info/tarjeta-admin.css' });
   link.dataset.localCss = 'tarjetaAdmin';
   document.head.appendChild(link);
 }
@@ -48,8 +46,7 @@ async function llamarRpcAdmin(payload) {
 function borrarArchivoStorage(ruta) {
   if (!ruta || !tokenAdmin) return;
   fetch(`${SUPABASE_URL}/storage/v1/object/fotos-puntos/${ruta}`, {
-    method: 'DELETE',
-    headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${tokenAdmin}` }
+    method: 'DELETE', headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${tokenAdmin}` }
   }).catch(() => {});
 }
 
@@ -68,38 +65,31 @@ function pintarBarraAdmin() {
     });
     document.body.appendChild(barraEl);
   }
+  const totPts = ctrlPuntos?.obtenerTotal() || 0;
   const num = barraEl.querySelector('[data-ta-num]');
-  if (num) num.textContent = String(pendientesCache.length);
+  if (num) num.textContent = String(pendientesCache.length + totPts);
+  const tabF = modalCola?.querySelector('[data-ta-tab-num="fotos"]');
+  const tabP = modalCola?.querySelector('[data-ta-tab-num="puntos"]');
+  if (tabF) tabF.textContent = String(pendientesCache.length);
+  if (tabP) tabP.textContent = String(totPts);
 }
 
 function inyectarBotonOficial(panel, ubicacion) {
   if (!tokenAdmin || !panel || !ubicacion) return;
   const acciones = panel.querySelector('[data-ti-acciones]');
   if (!acciones || acciones.querySelector('[data-ta-oficial]')) return;
-  const btn = document.createElement('button');
-  btn.type = 'button';
-  btn.className = 'ti-btn ta-btn-oficial';
+  const btn = Object.assign(document.createElement('button'), { type: 'button', className: 'ti-btn ta-btn-oficial', textContent: 'Subir foto oficial (Admin)' });
   btn.dataset.taOficial = ubicacion.id;
-  btn.textContent = 'Subir foto oficial (Admin)';
-  btn.addEventListener('click', () => {
-    puntoSubidaOficial = ubicacion;
-    asegurarInputOficial();
-    inputOficial.click();
-  });
+  btn.addEventListener('click', () => { puntoSubidaOficial = ubicacion; asegurarInputOficial(); inputOficial.click(); });
   acciones.appendChild(btn);
 }
 
 function asegurarInputOficial() {
   if (inputOficial) return;
-  inputOficial = document.createElement('input');
-  inputOficial.type = 'file';
-  inputOficial.accept = 'image/jpeg,image/png,image/webp,image/avif';
-  inputOficial.hidden = true;
+  inputOficial = Object.assign(document.createElement('input'), { type: 'file', accept: 'image/jpeg,image/png,image/webp,image/avif', hidden: true });
   inputOficial.addEventListener('change', async () => {
-    const archivo = inputOficial.files?.[0];
-    inputOficial.value = '';
-    if (!archivo || !puntoSubidaOficial || !tokenAdmin) return;
-    await publicarFotoOficial(puntoSubidaOficial, archivo);
+    const archivo = inputOficial.files?.[0]; inputOficial.value = '';
+    if (archivo && puntoSubidaOficial && tokenAdmin) await publicarFotoOficial(puntoSubidaOficial, archivo);
   });
   document.body.appendChild(inputOficial);
 }
@@ -135,10 +125,24 @@ async function publicarFotoOficial(ubicacion, archivo) {
   }
 }
 
+async function asegurarCtrlPuntos() {
+  if (ctrlPuntos) return ctrlPuntos;
+  try {
+    const mod = await import('../07-puntos-comunidad/comunidad-admin.js');
+    ctrlPuntos = mod.crearControladorAdminPuntos({
+      obtenerToken: () => tokenAdmin, borrarStorage: borrarArchivoStorage,
+      contexto: contextoRef, avisar, onCambioConteo: () => pintarBarraAdmin()
+    });
+  } catch { ctrlPuntos = null; }
+  return ctrlPuntos;
+}
+
 async function refrescarPendientes() {
   if (!tokenAdmin) return [];
   const res = await llamarRpcAdmin({ p_accion: 'listar_pendientes' });
   pendientesCache = Array.isArray(res.items) ? res.items : [];
+  const cp = await asegurarCtrlPuntos();
+  if (cp) await cp.refrescarCola().catch(() => {});
   pintarBarraAdmin();
   return pendientesCache;
 }
@@ -177,6 +181,14 @@ function pintarItemsCola() {
   }).join('');
 }
 
+function pintarColaActiva() {
+  if (!modalCola) return;
+  modalCola.querySelectorAll('[data-ta-tab]').forEach((t) => t.classList.toggle('ta-tab-activa', t.dataset.taTab === tabActiva));
+  const lista = modalCola.querySelector('[data-ta-lista]');
+  if (tabActiva === 'puntos') ctrlPuntos ? ctrlPuntos.pintarLista(lista) : (lista.innerHTML = '<p class="ta-vacio">Módulo de comunidad no disponible.</p>');
+  else pintarItemsCola();
+}
+
 async function abrirColaModeracion() {
   if (!tokenAdmin) return abrirModalLogin();
   modalCola?.remove();
@@ -187,22 +199,28 @@ async function abrirColaModeracion() {
   modalCola.innerHTML =
     `<div class="ta-cola">` +
       `<header class="ti-cabecera">` +
-        `<div class="ti-titulos"><h3 class="ti-titulo">Cola de moderación de fotos</h3>` +
-        `<p class="ti-ap-sub">Compara y aprueba o rechaza en 1 toque.</p></div>` +
+        `<div class="ti-titulos"><h3 class="ti-titulo">Cola de moderación</h3>` +
+        `<p class="ti-ap-sub">Fotos comunitarias y puntos propuestos en 1 toque.</p></div>` +
         `<button type="button" class="ti-cerrar" data-ta-cerrar aria-label="Cerrar">✕</button>` +
       `</header>` +
+      `<div class="ta-tabs" role="tablist">` +
+        `<button type="button" class="ta-tab" data-ta-tab="fotos">Fotos <span class="ta-contador" data-ta-tab-num="fotos">0</span></button>` +
+        `<button type="button" class="ta-tab" data-ta-tab="puntos">Puntos <span class="ta-contador" data-ta-tab-num="puntos">0</span></button>` +
+      `</div>` +
       `<div class="ta-lista" data-ta-lista><p class="ta-vacio">Cargando pendientes…</p></div>` +
     `</div>`;
 
+  const cerrar = () => { modalCola?.remove(); modalCola = null; };
   modalCola.addEventListener('click', async (e) => {
-    if (e.target === modalCola || e.target.closest('[data-ta-cerrar]')) {
-      modalCola?.remove(); modalCola = null; return;
+    if (e.target === modalCola || e.target.closest('[data-ta-cerrar]')) return cerrar();
+    const tab = e.target.closest('[data-ta-tab]');
+    if (tab) { tabActiva = tab.dataset.taTab; return pintarColaActiva(); }
+    if (tabActiva === 'puntos' && ctrlPuntos) {
+      const lista = modalCola.querySelector('[data-ta-lista]');
+      if (await ctrlPuntos.manejarClic(e, lista, cerrar)) return;
     }
     const ir = e.target.closest('[data-ta-ir]');
-    if (ir) {
-      contextoRef?.emitir('edificio:punto-solicitado', { id: ir.dataset.taIr });
-      modalCola?.remove(); modalCola = null; return;
-    }
+    if (ir) { contextoRef?.emitir('edificio:punto-solicitado', { id: ir.dataset.taIr }); return cerrar(); }
     const btn = e.target.closest('[data-ta-acc]');
     if (!btn) return;
     btn.disabled = true;
@@ -212,8 +230,7 @@ async function abrirColaModeracion() {
       if (res.ruta_borrar) borrarArchivoStorage(res.ruta_borrar);
       if (res.punto_id) contextoRef?.emitir('tarjeta:foto-actualizada', { puntoId: res.punto_id });
       pendientesCache = pendientesCache.filter((x) => x.id !== btn.dataset.taId);
-      pintarBarraAdmin();
-      pintarItemsCola();
+      pintarBarraAdmin(); pintarColaActiva();
       avisar?.(btn.dataset.taAcc === 'aprobar' ? 'Foto aprobada y publicada en vivo.' : 'Propuesta rechazada y eliminada.');
     } catch (err) {
       btn.disabled = false;
@@ -223,8 +240,8 @@ async function abrirColaModeracion() {
 
   document.body.appendChild(modalCola);
   requestAnimationFrame(() => modalCola?.classList.add('ti-abierto'));
-  try { await refrescarPendientes(); pintarItemsCola(); }
-  catch (err) { avisar?.(err.message, true); modalCola?.remove(); modalCola = null; }
+  try { await refrescarPendientes(); pintarColaActiva(); }
+  catch (err) { avisar?.(err.message, true); cerrar(); }
 }
 
 function abrirModalLogin() {
@@ -291,7 +308,7 @@ function abrirModalLogin() {
 function cerrarSesionAdmin(notificar = true) {
   const previo = tokenAdmin;
   guardarToken('');
-  pendientesCache = [];
+  pendientesCache = []; ctrlPuntos?.limpiar();
   barraEl?.remove(); barraEl = null;
   modalCola?.remove(); modalCola = null;
   document.querySelectorAll('[data-ta-oficial]').forEach((el) => el.remove());

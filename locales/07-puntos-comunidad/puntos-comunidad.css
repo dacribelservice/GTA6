@@ -1,0 +1,283 @@
+/* 🌐 PUNTOS DE LA COMUNIDAD — ESTILOS AISLADOS (puntos-comunidad.css <= 180 líneas) */
+/* Marcadores comunitarios en #capa-pines a resolución nativa 1:1 (cero 3D, diseño plano) */
+
+.marcador-comunidad {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px dashed var(--color-icono, #ff2a85);
+  background: rgba(10, 14, 22, 0.94);
+  color: var(--color-icono, #ff2a85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 14;
+  --pin-escala: 1;
+  transform: translate3d(var(--px, -999px), var(--py, -999px), 0) translate(-50%, -50%) scale(calc(var(--pin-zoom, 1) * var(--pin-escala)));
+  transform-origin: center center;
+  contain: layout style;
+  box-shadow: 0 0 0 2px rgba(9, 12, 20, 0.85);
+  transition: background-color 0.12s ease, color 0.12s ease, border-style 0.12s ease;
+}
+
+.marcador-comunidad.verificado {
+  border-style: solid;
+  box-shadow: 0 0 0 2px rgba(9, 12, 20, 0.9), 0 0 0 3.5px rgba(255, 193, 104, 0.72);
+}
+
+.marcador-comunidad .marcador-svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+  pointer-events: none;
+}
+
+.marcador-comunidad:hover,
+.marcador-comunidad:focus-visible,
+.marcador-comunidad.seleccionado {
+  z-index: 38;
+  --pin-escala: 1.24;
+  border-style: solid;
+  background: var(--color-icono, #ff2a85);
+  color: #090b10;
+  box-shadow: 0 0 14px var(--color-icono, #ff2a85);
+  outline: none;
+}
+
+.marcador-comunidad::after {
+  content: attr(data-titulo);
+  position: absolute;
+  bottom: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%) translateY(3px);
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(9, 12, 20, 0.95);
+  border: 1px solid var(--color-icono, #ff2a85);
+  color: #f8fafc;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.14s ease, transform 0.14s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.65);
+}
+
+.marcador-comunidad:hover::after,
+.marcador-comunidad:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.marcador-comunidad.resaltado {
+  z-index: 42;
+  animation: pulso-pin-com 0.9s ease-in-out 2;
+}
+
+@keyframes pulso-pin-com {
+  0%, 100% { box-shadow: 0 0 0 0 var(--color-icono, #ff2a85); }
+  50% { box-shadow: 0 0 0 10px rgba(255, 42, 133, 0); }
+}
+
+/* Metadatos y verificación social comunitaria dentro de la Tarjeta de Información */
+.pc-tarjeta-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 9px 10px;
+  border-radius: 12px;
+  background: rgba(255, 42, 133, 0.08);
+  border: 1px solid rgba(255, 42, 133, 0.28);
+  font-size: 0.74rem;
+  color: rgba(248, 250, 252, 0.88);
+}
+
+.pc-meta-fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 10px;
+}
+
+.pc-autor {
+  font-weight: 700;
+  color: var(--texto-base, #f8fafc);
+}
+
+.pc-badge-estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.pc-badge-estado.pc-verificado {
+  background: rgba(255, 193, 104, 0.16);
+  color: #ffe3b0;
+  border-color: rgba(255, 193, 104, 0.58);
+}
+
+.pc-badge-estado.pc-confirmado {
+  background: rgba(16, 185, 129, 0.16);
+  color: #a7f3d0;
+  border-color: rgba(16, 185, 129, 0.55);
+}
+
+.pc-badge-estado.pc-duda {
+  background: rgba(255, 107, 82, 0.18);
+  color: #fecaca;
+  border-color: rgba(255, 107, 82, 0.55);
+}
+
+.pc-aviso-tarjeta {
+  font-size: 0.7rem;
+  line-height: 1.35;
+  color: rgba(241, 245, 249, 0.7);
+}
+
+.pc-votos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.pc-btn-voto {
+  appearance: none;
+  min-height: 36px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--texto-base, #f8fafc);
+  border: 1.5px solid transparent;
+  background: var(--ti-fondo-int, linear-gradient(#0b101b, #0b101b)) padding-box,
+    var(--ti-grad-gta6, linear-gradient(135deg, #3454d1 0%, #8a3ab9 28%, #ff2a85 55%, #ff6b52 78%, #ffc168 100%)) border-box;
+  transition: background 150ms ease, transform 120ms ease, opacity 140ms ease;
+}
+
+.pc-btn-voto:hover:not(:disabled) {
+  background: var(--ti-fondo-hover, linear-gradient(#141d30, #141d30)) padding-box,
+    var(--ti-grad-gta6, linear-gradient(135deg, #3454d1 0%, #8a3ab9 28%, #ff2a85 55%, #ff6b52 78%, #ffc168 100%)) border-box;
+}
+
+.pc-btn-voto:active:not(:disabled) { transform: scale(0.97); }
+.pc-btn-voto:disabled { opacity: 0.5; cursor: not-allowed; }
+.pc-voto-svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+.pc-btn-confirmar .pc-voto-svg { color: #ff2a85; }
+.pc-btn-reportar .pc-voto-svg { color: #ff6b52; }
+
+.pc-btn-confirmar.pc-voto-activo {
+  background: linear-gradient(rgba(255, 42, 133, 0.24), rgba(255, 42, 133, 0.24)) padding-box,
+    var(--ti-grad-gta6, linear-gradient(135deg, #3454d1, #ff2a85, #ffc168)) border-box;
+  color: #fff;
+}
+.pc-btn-confirmar.pc-voto-activo .pc-voto-svg { fill: #ff2a85; }
+
+.pc-btn-reportar.pc-voto-activo {
+  background: linear-gradient(rgba(255, 107, 82, 0.24), rgba(255, 107, 82, 0.24)) padding-box,
+    var(--ti-grad-gta6, linear-gradient(135deg, #3454d1, #ff2a85, #ffc168)) border-box;
+  color: #ffe4e6;
+}
+
+/* Aviso limpio propio si falta un submódulo bajo demanda */
+.pc-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  z-index: 92;
+  max-width: min(400px, calc(100vw - 24px));
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: var(--panel-bg, rgba(10, 14, 22, 0.96));
+  color: var(--texto-base, #f8fafc);
+  border: 1px solid var(--panel-borde, rgba(255, 42, 133, 0.4));
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.58);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(-50%, 14px, 0);
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms ease;
+}
+
+.pc-toast.pc-visible {
+  opacity: 1;
+  transform: translate3d(-50%, 0, 0);
+}
+
+/* Botón flotante discreto + Proponer punto (abajo-izquierda, libre de controles y /admin) */
+.pc-fab {
+  position: fixed;
+  left: 14px;
+  bottom: 14px;
+  z-index: 41;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 13px;
+  border-radius: 12px;
+  cursor: pointer;
+  background: var(--panel-bg, rgba(10, 14, 22, 0.94));
+  color: var(--texto-base, #f8fafc);
+  border: 1px solid rgba(255, 42, 133, 0.5);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+  font-size: 0.77rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  contain: layout style paint;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.12s ease;
+}
+
+.pc-fab[hidden] {
+  display: none;
+}
+
+.pc-fab:hover {
+  border-color: var(--acento-cyan, #00f0ff);
+  background: rgba(255, 42, 133, 0.18);
+}
+
+.pc-fab:active {
+  transform: scale(0.96);
+}
+
+.pc-fab-mas {
+  color: #ff2a85;
+  font-size: 0.96rem;
+  line-height: 1;
+  font-weight: 900;
+}
+
+@media (max-width: 640px) {
+  .pc-fab {
+    top: 14px;
+    right: 10px;
+    left: auto;
+    bottom: auto;
+    padding: 8px 11px;
+    font-size: 0.74rem;
+  }
+}

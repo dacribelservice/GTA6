@@ -88,6 +88,28 @@
   font-size: 0.84rem; color: rgba(241, 245, 249, 0.75);
 }
 
+/* Pestañas Fotos / Puntos y elementos de moderación comunitaria */
+.ta-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ta-tab {
+  appearance: none; cursor: pointer; padding: 8px 10px; border-radius: 10px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  font-size: 0.78rem; font-weight: 800; color: rgba(241, 245, 249, 0.76);
+  background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.ta-tab.ta-tab-activa {
+  color: #fff; background: rgba(255, 42, 133, 0.18); border-color: rgba(255, 42, 133, 0.65);
+}
+.ta-tag-pend {
+  padding: 2px 8px; border-radius: 999px; font-size: 0.69rem; font-weight: 800;
+  background: rgba(0, 240, 255, 0.14); color: #bae6fd; border: 1px solid rgba(0, 240, 255, 0.42);
+}
+.ta-item-desc { font-size: 0.76rem; line-height: 1.4; color: rgba(241, 245, 249, 0.82); }
+.ta-thumb-com { max-width: 280px; }
+.ta-sin-foto { font-size: 0.72rem; color: rgba(241, 245, 249, 0.52); }
+.ta-btn-verificar {
+  background: rgba(255, 193, 104, 0.16); color: #ffe3b0; border-color: rgba(255, 193, 104, 0.55);
+}
+
 @media (max-width: 640px) {
   .ta-barra { top: auto; bottom: 72px; max-width: calc(100vw - 20px); flex-wrap: wrap; justify-content: center; }
   .ta-comparar { grid-template-columns: 1fr; }

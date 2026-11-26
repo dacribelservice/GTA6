@@ -12,6 +12,7 @@ export const ESTADO_LOCALES = {
   progresoJugador: false,  // Progreso del Jugador (Pendiente)
   pinesPersonales: false,  // Mis Pines Personales (Pendiente)
   modoEditor: false,       // Modo Editor (Pendiente)
+  puntosComunidad: true,   // Puntos de la Comunidad: Encendido (Supabase)
   enVivo: true             // Contador en Vivo: Encendido (Supabase)
 };
 
@@ -57,6 +58,13 @@ const CATALOGO_LOCALES = [
     css: './locales/06-modo-editor/modo-editor.css',
     js: '../locales/06-modo-editor/modo-editor.js',
     iniciar: 'iniciarModoEditor'
+  },
+  {
+    clave: 'puntosComunidad',
+    nombre: 'Puntos de la Comunidad',
+    css: './locales/07-puntos-comunidad/puntos-comunidad.css',
+    js: '../locales/07-puntos-comunidad/puntos-comunidad.js',
+    iniciar: 'iniciarPuntosComunidad'
   },
   {
     clave: 'enVivo',
