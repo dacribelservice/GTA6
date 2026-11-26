@@ -74,14 +74,14 @@ function pintarBarraAdmin() {
   if (tabP) tabP.textContent = String(totPts);
 }
 
-function inyectarBotonOficial(panel, ubicacion) {
-  if (!tokenAdmin || !panel || !ubicacion) return;
-  const acciones = panel.querySelector('[data-ti-acciones]');
-  if (!acciones || acciones.querySelector('[data-ta-oficial]')) return;
-  const btn = Object.assign(document.createElement('button'), { type: 'button', className: 'ti-btn ta-btn-oficial', textContent: 'Subir foto oficial (Admin)' });
-  btn.dataset.taOficial = ubicacion.id;
-  btn.addEventListener('click', () => { puntoSubidaOficial = ubicacion; asegurarInputOficial(); inputOficial.click(); });
-  acciones.appendChild(btn);
+function inyectarAccionesEnTarjeta(det) {
+  if (!tokenAdmin || !det?.panel || !det?.ubicacion) return;
+  import('./tarjeta-admin-acciones.js').then((m) => m.inyectarAccionesAdminTarjeta({
+    panel: det.panel, ubicacion: det.ubicacion, foto: det.foto || null,
+    obtenerToken: () => tokenAdmin, llamarRpcFoto: llamarRpcAdmin, borrarStorage: borrarArchivoStorage,
+    solicitarSubidaOficial: (u) => { puntoSubidaOficial = u; asegurarInputOficial(); inputOficial.click(); },
+    contexto: contextoRef, avisar
+  })).catch(() => {});
 }
 
 function asegurarInputOficial() {
@@ -311,7 +311,7 @@ function cerrarSesionAdmin(notificar = true) {
   pendientesCache = []; ctrlPuntos?.limpiar();
   barraEl?.remove(); barraEl = null;
   modalCola?.remove(); modalCola = null;
-  document.querySelectorAll('[data-ta-oficial]').forEach((el) => el.remove());
+  document.querySelectorAll('[data-ta-admin-btn]').forEach((el) => el.remove());
   if (previo) {
     fetch(`${SUPABASE_URL}/auth/v1/logout`, {
       method: 'POST', headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${previo}` }
@@ -332,7 +332,7 @@ export async function iniciarAdminProvisional(contexto, { mostrarAvisoTarjeta } 
     for (const u of det?.ubicaciones || []) titulosPorId.set(u.id, u.titulo);
   });
   contexto.emitir('iconos:solicitar-datos');
-  contexto.escuchar('tarjeta:abierta', (det) => inyectarBotonOficial(det?.panel, det?.ubicacion));
+  contexto.escuchar('tarjeta:abierta', (det) => inyectarAccionesEnTarjeta(det));
 
   tokenAdmin = leerToken();
   if (tokenAdmin) {

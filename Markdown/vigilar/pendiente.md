@@ -70,8 +70,8 @@ Documento de vigilancia arquitectónica para prevenir deuda técnica a medida qu
 * **Gatillo de activación:** Al crear un segundo entorno de pruebas o al conectar nuevos módulos dependientes de cuentas (*Progreso del Jugador*, *Mis Pines Personales*, *Chat Radio Leonida*).
 * **Acción exacta futura:**
   * Respetar la **Ley del Remolque**: no refactorizar módulos estables por estética hoy.
-  * En módulos nuevos (**Puntos de la Comunidad**), concentrar las llamadas `fetch()` hacia Supabase en un único helper interno dentro de `locales/07-puntos-comunidad/`.
-  * Al activar el núcleo de cuentas, crear un archivo liviano único (ej. `edificio/config-supabase.js`, `< 20` líneas) consumido por los módulos nuevos.
+  * En módulos nuevos (**Puntos de la Comunidad**), ya quedó aplicado el paso intermedio con un único helper interno (`locales/07-puntos-comunidad/comunidad-api.js`).
+  * Al activar el núcleo de cuentas o entornos `staging`, crear un único archivo liviano **`edificio/config-supabase.js`** (`< 20` líneas) **siempre en `.js` puro (ES Module nativo + `fetch()`), nunca `supabase.ts` ni SDK pesado**, para conservar 0 compiladores y **98–100 en Google PageSpeed**. *(Para ver tablas y datos en vivo usar directamente Supabase Dashboard → Table Editor y los respaldos `supabase-*.sql` del proyecto.)*
 
 ---
 

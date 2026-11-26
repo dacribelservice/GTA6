@@ -5,12 +5,12 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   padding: 0;
   border-radius: 50%;
   border: 2px dashed var(--color-icono, #ff2a85);
-  background: rgba(10, 14, 22, 0.94);
+  background: rgba(10, 14, 22, 0.92);
   color: var(--color-icono, #ff2a85);
   display: flex;
   align-items: center;
@@ -22,18 +22,17 @@
   transform: translate3d(var(--px, -999px), var(--py, -999px), 0) translate(-50%, -50%) scale(calc(var(--pin-zoom, 1) * var(--pin-escala)));
   transform-origin: center center;
   contain: layout style;
-  box-shadow: 0 0 0 2px rgba(9, 12, 20, 0.85);
   transition: background-color 0.12s ease, color 0.12s ease, border-style 0.12s ease;
 }
 
 .marcador-comunidad.verificado {
   border-style: solid;
-  box-shadow: 0 0 0 2px rgba(9, 12, 20, 0.9), 0 0 0 3.5px rgba(255, 193, 104, 0.72);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 193, 104, 0.78);
 }
 
 .marcador-comunidad .marcador-svg {
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
   display: block;
   pointer-events: none;
 }

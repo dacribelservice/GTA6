@@ -222,6 +222,7 @@ DECLARE
   v_accion text := lower(trim(coalesce(p_accion, '')));
   v_pend record;
   v_ant_ruta text := NULL;
+  v_punto_obj text := NULL;
   v_items jsonb;
   v_nuevo_id uuid;
 BEGIN
@@ -273,6 +274,23 @@ BEGIN
       RETURN jsonb_build_object('ok', false, 'codigo', 'NO_ENCONTRADA', 'mensaje', 'Propuesta no encontrada.');
     END IF;
     RETURN jsonb_build_object('ok', true, 'accion', 'rechazar', 'ruta_borrar', v_ant_ruta);
+
+  ELSIF v_accion = 'eliminar_aprobada' THEN
+    UPDATE public.fotos_puntos SET estado = 'rechazada'
+     WHERE estado = 'aprobada'
+       AND (
+         (p_foto_id IS NOT NULL AND id = p_foto_id)
+         OR (p_foto_id IS NULL AND trim(coalesce(p_punto_id, '')) <> '' AND punto_id = trim(p_punto_id))
+       )
+    RETURNING punto_id, ruta_storage INTO v_punto_obj, v_ant_ruta;
+
+    IF NOT FOUND THEN
+      RETURN jsonb_build_object('ok', false, 'codigo', 'NO_ENCONTRADA', 'mensaje', 'No hay foto aprobada para eliminar.');
+    END IF;
+
+    RETURN jsonb_build_object(
+      'ok', true, 'accion', 'eliminar_aprobada', 'punto_id', v_punto_obj, 'ruta_borrar', v_ant_ruta
+    );
 
   ELSIF v_accion = 'publicar_oficial' THEN
     IF trim(coalesce(p_punto_id, '')) !~ '^[a-zA-Z0-9_-]{1,100}$'
